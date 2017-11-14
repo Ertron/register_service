@@ -1,0 +1,11 @@
+{
+    "minimum-stability": "dev",
+    "require": {
+        "doctrine/dbal": "2.5.x-dev",
+        "silex/silex": "2.2.x-dev",
+        "twig/twig": "2.*@dev",
+        "symfony/config": "3.4.x-dev",
+        "symfony/twig-bridge": "3.4.x-dev",
+        "symfony/routing": "3.4.x-dev"
+    }
+}
