@@ -15,10 +15,10 @@
 
                 var xhr = new XHR();
                 var json = JSON.stringify({
-                    host: "reg.com"
+                    host: "test.com"
                 });
 
-                xhr.open('POST', 'api/adminp/', true);
+                xhr.open('DELETE', 'api/adminp/4', true);
 
                 xhr.onload = function() {
                     console.log('this : ', this);

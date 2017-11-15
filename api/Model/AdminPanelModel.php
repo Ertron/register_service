@@ -2,6 +2,7 @@
 namespace api\Model;
 use Silex\Application;
 use stdClass;
+
 class AdminPanelModel {
 	public $db;
 	public function __construct($database) {
@@ -29,57 +30,7 @@ class AdminPanelModel {
 			  LEFT JOIN scenario AS sc ON sc.landing_page_id = lp.id".$sc_ids." ".$adm_id;
 		return $sql;
 	}
-	/*public function convertToPattern(array $array){
 
-		$admin_id = 0;
-		$admins = array();
-		$scenarios = array();
-		$landings = array();
-
-		foreach ($array as $key => $value){
-			$admins[$value['admin_id']];
-
-			$admin_id = $value['adminp_id'];
-			$scenario_id = $value['scenario_id'];
-			$landing_page_id = $value['lp_id'];
-			$landing_page_url = $value['url'];
-			$popup_id = $value['popup_id'];
-			$steps = $value['steps'];
-			$filters = $value['filters'];
-			$lp['url'] = $landing_page_url;
-			if($landing_page_id){
-				$landings[$landing_page_id] = $lp;
-			}
-
-			if($scenario_id == NULL){
-				$scenarios[$landing_page_id][] = new \stdClass();
-			}
-			else{
-				$obj = new \stdClass();
-				$obj->id = $scenario_id;
-				$obj->popup_id = $popup_id;
-				$obj->steps = json_decode($steps, true);
-				$obj->filters = json_decode($filters, true);
-				$scenarios[$landing_page_id][] = $obj;
-			}
-		}
-
-		$lands = array();
-		foreach ( $landings as $key => $item ) {
-			$obj = new stdClass();
-			$obj->url = $item['url'];
-			$sc_arr = array();
-			$obj->scenarios = $scenarios[$key];
-			$lands[] = $obj;
-		}
-		if(count($landings) == 0) $lands[] = new stdClass();
-
-		$result_object = new stdClass();
-		$result_object-> id_admin = $admin_id;
-		$result_object-> landings = $lands;
-
-		return array($result_object);
-	}*/
 	private function convertToPattern(array $input){
 		$adminp_arr = array();
 		$result_arr = array();
@@ -151,12 +102,62 @@ class AdminPanelModel {
 		return $result;
 	}
 
-	public function isSetHost(string $host): bool {
+	public function isSetAdminPanel(string $host): bool {
 		$sql = "SELECT *
 				FROM admin_panel 
-				WHERE host = ?";
+				WHERE id = ?";
 		$query_result = $this->db->fetchAll($sql, array($host));
 		if(!empty($query_result))return true;
 		return false;
+	}
+
+	public function isSetLandingPage(int $adm_id, string $url): bool {
+		$sql = "SELECT *
+				FROM landing_page
+				WHERE admin_panel_id = ? AND url = ?";
+		$query_result = $this->db->fetchAll($sql, array($adm_id, $url));
+		if(!empty($query_result))return true;
+		return false;
+	}
+
+	/*public function isSetScenario(int $lp_id, int $sc_id): bool {
+		$sql = "SELECT *
+				FROM scenario
+				WHERE landing_page_id = ? AND scenario_id = ?";
+		$query_result = $this->db->fetchAll($sql, array($lp_id, $sc_id));
+		if(!empty($query_result))return true;
+		return false;
+	}*/
+
+	private function keyGenarator(string $hostName): string {
+		$result = md5($hostName);
+		return $result;
+	}
+
+	public function addAdminPanel(string $hostName): int{
+		$key = $this->keyGenarator($hostName);
+		$this->db->insert('admin_panel', array('`host`' => $hostName, '`secure_key`' => $key));
+		$host_id = $this->db->lastInsertId();
+		return $host_id;
+	}
+
+	public function addLandingPage(int $adm_id, string $url): int{
+		$this->db->insert('landing_page', array('`admin_panel_id`' => $adm_id, '`url`' => $url));
+		$lp_id = $this->db->lastInsertId();
+		return $lp_id;
+	}
+	public function addScenario(int $lp_id, int $popup_id, string $steps, string $filters): int{
+		$this->db->insert('landing_page', array('`admin_panel_id`' => $lp_id, '`popup_id`'=> $popup_id,
+		                                        '`steps`' => $steps, '`filters`' => $filters));
+		$sc_id = $this->db->lastInsertId();
+		return $sc_id;
+	}
+
+	public function deleteAdminPanel(int $id){
+		$this->db->delete('admin_panel', array('id' => $id));
+	}
+
+	public function deleteLandingPage(int $adm_id, int $lp_id){
+		$this->db->delete('landing_page', array('id' => $lp_id, 'admin_panel_id' => $adm_id));
 	}
 }
