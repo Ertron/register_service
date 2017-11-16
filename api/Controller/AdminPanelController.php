@@ -7,6 +7,7 @@ $adminController = $app['controllers_factory'];
 
 
 $adminController->get('/', function () use ($app, $adminPanel) {
+
 	$sql = $adminPanel->smartQueryBuilderSelect();
 	$main = $app['db']->fetchAll($sql, array());
 	return $app->json($adminPanel->getFullInfo($main));

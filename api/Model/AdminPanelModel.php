@@ -101,11 +101,21 @@ class AdminPanelModel {
 		return $result;
 	}
 
-	public function isSetAdminPanel(string $host): bool {
+	public function isSetAdminPanel(string $host = NULL, int $id = NULL): bool {
+		$q_part = NULL;
+		$param = NULL;
+		if($host != NULL){
+			$q_part = 'host';
+			$param = $host;
+		}
+		elseif ($id){
+			$q_part = 'id';
+			$param = $id;
+		}
 		$sql = "SELECT *
 				FROM admin_panel 
-				WHERE id = ?";
-		$query_result = $this->db->fetchAll($sql, array($host));
+				WHERE ".$q_part." = ?";
+		$query_result = $this->db->fetchAll($sql, array($param));
 		if(!empty($query_result))return true;
 		return false;
 	}
