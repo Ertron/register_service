@@ -14,11 +14,36 @@
                 var XHR = ("onload" in new XMLHttpRequest()) ? XMLHttpRequest : XDomainRequest;
 
                 var xhr = new XHR();
-                var json = JSON.stringify({
-                    host: "test.com"
-                });
+                /*var json = JSON.stringify({
+                    url : "http://optimization.guide"
+                });*/
+                /*var json = JSON.stringify({
+                    popup_id: "33",
+                    steps: [
+                        {
+                            "step_id": "1",
+                            "parameters": {
+                                "param1": "77",
+                                "param2": "54"
+                                }
+                        },
+                        {
+                            "step_id": "2",
+                            "parameters": {
+                                "param1": "1",
+                                "param2": "2"
+                            }
+                        }],
+                    filters: {
+                        "geo": {},
+                        "device": {},
+                        "time_table": {},
+                        "user_access": {"new" : 0, "old" : 1}
+                    }
+                });*/
 
-                xhr.open('DELETE', 'api/adminp/4', true);
+                /*xhr.open('POST', 'api/adminp/6/page/3/scenario', true);*/
+                xhr.open('DELETE', 'api/adminp/6', true);
 
                 xhr.onload = function() {
                     console.log('this : ', this);
@@ -30,7 +55,7 @@
                     alert( 'Ошибка ' + this.status );
                 };
 
-                xhr.send(json);
+                xhr.send();
 
             }
         </script>

@@ -19,9 +19,8 @@ class AdminPanelModel {
 		$sql = "SELECT adm.id AS adminp_id,
 				   lp.id AS lp_id,
 				   lp.url,
-				   sc.id AS sc_id,
+				   sc.id AS scenario_id,
 				   sc.landing_page_id AS sc_lp_id,
-				   sc.scenario_id,
 				   sc.popup_id,
 				   sc.steps,
 				   sc.filters
@@ -110,24 +109,32 @@ class AdminPanelModel {
 		if(!empty($query_result))return true;
 		return false;
 	}
-
-	public function isSetLandingPage(int $adm_id, string $url): bool {
+	public function isSetLandingPage(int $adm_id, string $url = NULL, int $lp_id = NULL): bool {
+		$q_part = NULL;
+		$param = NULL;
+		if($url != NULL){
+			$q_part = 'url';
+			$param = $url;
+		}
+		elseif ($lp_id){
+			$q_part = 'id';
+			$param = $lp_id;
+		}
 		$sql = "SELECT *
 				FROM landing_page
-				WHERE admin_panel_id = ? AND url = ?";
-		$query_result = $this->db->fetchAll($sql, array($adm_id, $url));
+				WHERE admin_panel_id = ? AND ".$q_part." = ?";
+		$query_result = $this->db->fetchAll($sql, array($adm_id, $param));
 		if(!empty($query_result))return true;
 		return false;
 	}
-
-	/*public function isSetScenario(int $lp_id, int $sc_id): bool {
+	public function isSetScenario(int $lp_id, int $sc_id): bool {
 		$sql = "SELECT *
 				FROM scenario
-				WHERE landing_page_id = ? AND scenario_id = ?";
+				WHERE landing_page_id = ? AND id = ?";
 		$query_result = $this->db->fetchAll($sql, array($lp_id, $sc_id));
 		if(!empty($query_result))return true;
 		return false;
-	}*/
+	}
 
 	private function keyGenarator(string $hostName): string {
 		$result = md5($hostName);
@@ -140,14 +147,13 @@ class AdminPanelModel {
 		$host_id = $this->db->lastInsertId();
 		return $host_id;
 	}
-
 	public function addLandingPage(int $adm_id, string $url): int{
 		$this->db->insert('landing_page', array('`admin_panel_id`' => $adm_id, '`url`' => $url));
 		$lp_id = $this->db->lastInsertId();
 		return $lp_id;
 	}
 	public function addScenario(int $lp_id, int $popup_id, string $steps, string $filters): int{
-		$this->db->insert('landing_page', array('`admin_panel_id`' => $lp_id, '`popup_id`'=> $popup_id,
+		$this->db->insert('scenario', array('`landing_page_id`' => $lp_id, '`popup_id`'=> $popup_id,
 		                                        '`steps`' => $steps, '`filters`' => $filters));
 		$sc_id = $this->db->lastInsertId();
 		return $sc_id;
@@ -156,8 +162,10 @@ class AdminPanelModel {
 	public function deleteAdminPanel(int $id){
 		$this->db->delete('admin_panel', array('id' => $id));
 	}
-
 	public function deleteLandingPage(int $adm_id, int $lp_id){
 		$this->db->delete('landing_page', array('id' => $lp_id, 'admin_panel_id' => $adm_id));
+	}
+	public function deleteScenario(int $id, int $lp_id){
+		$this->db->delete('scenario', array('id' => $id, 'landing_page_id' => $lp_id));
 	}
 }
