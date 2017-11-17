@@ -1,7 +1,7 @@
 <?php
 namespace api\Service;
 
-class ServiceLogger {
+class LoggerService {
 	private $adminPanelId;
 	private $db;
 	private $entityType = array('admin_panel', 'landing_page', 'scenario');

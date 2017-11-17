@@ -38,6 +38,7 @@ $adminController->post('/', function (Request $request) use ($app, $adminPanel){
 
 	if(!$is_set_host){// insert
 		$result['id'] = $adminPanel->addAdminPanel($name);
+		$app['log']->addLog('admin_panel', $result['id'], 'create');
 		$result['result'] = 'New Admin Panel added to DB';
 	}
 	return $app->json($result);
@@ -53,6 +54,7 @@ $adminController->post('/{id}/page', function ($id, Request $request) use ($app,
 
 	if(!$is_set_host){// insert
 		$result['id'] = $adminPanel->addLandingPage($id, $url);
+		$app['log']->addLog('landing_page', $result['id'], 'create');
 		$result['result'] = 'New Landing Page added to yours Admin Panel';
 	}
 
@@ -70,23 +72,20 @@ $adminController->post('/{id}/page/{lp_id}/scenario', function ($id, $lp_id, Req
 
 	if(!empty($lp_id) && !empty($steps) && !empty($filters)){// insert
 		$result['id'] = $adminPanel->addScenario($lp_id, $popup_id, $steps, $filters);
+		$app['log']->addLog('scenario', $result['id'], 'create');
 		$result['result'] = 'New Scenario added to yours Landing Page';
 	}
 
 	return $app->json($result);
 });
 
-// Update Scenario
-/*$adminController->post('/{id}/page/{l_id}/scenarios/{sc_id}', function (Request $request){
-
-});*/
-
 // Delete Admin Panel
 $adminController->delete('/{id}', function ($id) use ($app, $adminPanel){
-	$is_set_adm = $adminPanel->isSetAdminPanel($id);
+	$is_set_adm = $adminPanel->isSetAdminPanel(NULL, $id);
 	$result['result'] = 'Admin Panel with this ID do not exist';
 	if($is_set_adm){// delete
 		$result['result'] = 'Admin Panel successfully deleted';
+		$app['log']->addLog('admin_panel', $id, 'delete');
 		$adminPanel->deleteAdminPanel($id);
 	}
 	return $app->json($result);
@@ -98,6 +97,7 @@ $adminController->delete('/{id}/page/{l_id}', function ($id, $l_id) use ($app, $
 	$result['result'] = 'Landing Page with this ID do not exist';
 	if($is_set_lp){// delete
 		$result['result'] = 'Landing Page successfully deleted';
+		$app['log']->addLog('landing_page', $l_id, 'delete');
 		$adminPanel->deleteLandingPage($id, $l_id);
 	}
 	return $app->json($result);
@@ -109,6 +109,7 @@ $adminController->delete('/{id}/page/{l_id}/scenario/{sc_id}', function ($id, $l
 	$result['result'] = 'Scenario with this ID do not exist';
 	if($is_set_lp){// delete
 		$result['result'] = 'Scenario successfully deleted';
+		$app['log']->addLog('scenario', $sc_id, 'delete');
 		$adminPanel->deleteScenario($sc_id, $l_id);
 	}
 	return $app->json($result);

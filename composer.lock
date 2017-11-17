@@ -1049,12 +1049,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/http-kernel.git",
-                "reference": "31d8802bb11588f6eaf61c1b32d3789c4283c49d"
+                "reference": "06a0b65f4cd01f9828072b039426652d99b76276"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/http-kernel/zipball/31d8802bb11588f6eaf61c1b32d3789c4283c49d",
-                "reference": "31d8802bb11588f6eaf61c1b32d3789c4283c49d",
+                "url": "https://api.github.com/repos/symfony/http-kernel/zipball/06a0b65f4cd01f9828072b039426652d99b76276",
+                "reference": "06a0b65f4cd01f9828072b039426652d99b76276",
                 "shasum": ""
             },
             "require": {
@@ -1129,7 +1129,7 @@
             ],
             "description": "Symfony HttpKernel Component",
             "homepage": "https://symfony.com",
-            "time": "2017-11-12T18:07:22+00:00"
+            "time": "2017-11-16T21:50:23+00:00"
         },
         {
             "name": "symfony/polyfill-mbstring",

@@ -14,9 +14,9 @@
                 var XHR = ("onload" in new XMLHttpRequest()) ? XMLHttpRequest : XDomainRequest;
 
                 var xhr = new XHR();
-                /*var json = JSON.stringify({
-                    url : "http://optimization.guide"
-                });*/
+                var json = JSON.stringify({
+                    host : "optimization5.guide"
+                });
                 /*var json = JSON.stringify({
                     popup_id: "33",
                     steps: [
@@ -43,7 +43,7 @@
                 });*/
 
                 /*xhr.open('POST', 'api/adminp/6/page/3/scenario', true);*/
-                xhr.open('DELETE', 'api/adminp/6', true);
+                xhr.open('DELETE', 'api/adminp/10', true);
 
                 xhr.onload = function() {
                     console.log('this : ', this);
@@ -55,7 +55,7 @@
                     alert( 'Ошибка ' + this.status );
                 };
 
-                xhr.send();
+                xhr.send(json);
 
             }
         </script>

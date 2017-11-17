@@ -100,6 +100,10 @@ class AdminPanelModel {
 		}
 		return $result;
 	}
+	public function getAdminPanelIdByHostname(string $name){
+		$sql = "SELECT id FROM admin_panel WHERE host = ?";
+		return $this->db->fetchColumn($sql, array($name), 0);
+	}
 
 	public function isSetAdminPanel(string $host = NULL, int $id = NULL): bool {
 		$q_part = NULL;
