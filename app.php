@@ -38,6 +38,10 @@ $app->get('/', function() use ($app) {
 	return $app['twig']->render('index.twig', array());
 })->bind('index');
 
+$app->get('/inter', function() use ($app) {
+	return $app['twig']->render('interpreter.twig', array());
+})->bind('index');
+
 $app->before(function(Request $request) use($app){
 	$adm = new api\Model\AdminPanelModel($app['db']);
 	$app['host_info.hostname'] = $request->getHost();
