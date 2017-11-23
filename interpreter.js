@@ -23,7 +23,7 @@ let arrayScenarios = [
             },
             {
                 "step_id": "2",
-                "parameters": 90
+                "parameters": 9000
             }
 
         ]
@@ -81,50 +81,78 @@ var scenarioClass = (function (inc_steps) {
     let steps = {
         1 : {
             "param" : 30,
-            "method" : function () {
+            "method" : function (step_id) {
                 console.log('scrollTop method : ', window.scrollY);
                 console.log('Method this : ', activeScenario);
-                let index = findIndexByParam(arrayOfActiveSteps, 'step_id', 1);
-                console.log('result : ', steps);
-                if(window.scrollY > ((body.offsetHeight - window.innerHeight)/100 * arrayOfActiveSteps[index].parameters)){
-                    alert('krasava!!!');
-                    console.log('arrayOfActiveSteps : ', arrayOfActiveSteps);
-                    console.log('THOSE : ', index);
-                    arrayOfActiveSteps[index].action_end(1, function () {
+                function rrr() {
+                    let index = findIndexByParam(arrayOfActiveSteps, 'step_id', step_id);
+                    if(window.scrollY > ((body.offsetHeight - window.innerHeight)/100 * arrayOfActiveSteps[index].parameters)){
+                        console.error('krasava!!!');
+                        console.log('arrayOfActiveSteps : ', arrayOfActiveSteps);
+                        console.log('THOSE : ', index);
                         arrayOfActiveSteps[index].is_checked = true;
                         console.log('activateSteps : ', arrayOfActiveSteps);
-                    });
+                        window.removeEventListener('scroll', rrr);
+                        showPopup();
+                    }
                 }
+                window.addEventListener('scroll', rrr);
             },
-            "action_start" : function (id) {
+            /*"action_start" : function (id) {
                 console.log('action start id 1');
-                window.addEventListener('scroll', steps[id].method);
+
             },
             "action_end" : function (id, callback) {
                 console.log('action end id 1 : ', id);
                 console.log('action end this : ', this);
                 callback();
-                window.removeEventListener('scroll', steps[id].method);
-            }
+
+            }*/
         },
          2 : {
              "param" : 2000,
-             "method" : function () {
+             "method" : function (step_id) {
                  console.error('Before setTimeout!');
+                 let index = findIndexByParam(arrayOfActiveSteps, 'step_id', step_id);
                  setTimeout(function() {
-                     console.error('setTimeout!');
-                 }, this.param);
+                     arrayOfActiveSteps[index].is_checked = true;
+                     console.error('setTimeout! : ', arrayOfActiveSteps);
+                     showPopup();
+                 }, arrayOfActiveSteps[index].parameters);
              },
-             "action_start" : function () {
+             /*"action_start" : function () {
                  console.log('action start id 2');
                  let index = findIndexByParam(arrayOfActiveSteps, 'step_id', 2);
-                 /*arrayOfActiveSteps[index] = */
+                 /!*arrayOfActiveSteps[index] = *!/
              },
              "action_end" : function () {
                  console.log('action end id 2');
-             }
+             }*/
          },
     };
+
+    function allStepsChecked() {
+        function isChecked(item) {
+            return item.is_checked === true;
+        }
+        console.log('allStepsChecked : ', arrayOfActiveSteps.every(isChecked));
+        return arrayOfActiveSteps.every(isChecked);
+    }
+
+    function emergencyStepCheck() {
+        arrayOfActiveSteps.forEach(function (value, index) {
+            arrayOfActiveSteps[index].is_checked = true;
+        });
+    }
+
+    function showPopup() {
+        if(allStepsChecked()){
+            console.info('ALL CHECKED');
+        }
+        else{
+            console.info('NOT ALL CHECKED');
+        }
+    }
 
     function setScenarioId(id) {
         scenario_id = id;
@@ -146,19 +174,21 @@ var scenarioClass = (function (inc_steps) {
 
     function activateSteps(){
         arrayOfActiveSteps.forEach(function (value, index) {
-            value.action_start(value.step_id);
+            value.method(value.step_id);
         });
     }
 
     function addSteps(object, steps) {
         object.forEach(function (value, index) {
+            console.log('value : ', value);
+            console.log('steps : ', steps);
             arrayOfActiveSteps.push({
                 'step_id' : value.step_id,
                 'parameters' : value.parameters,
                 'is_checked' : false,
-                'method' : steps[1].method,
+                'method' : steps[value.step_id].method,/*
                 'action_start' : steps[value.step_id].action_start,
-                'action_end' : steps[value.step_id].action_end
+                'action_end' : steps[value.step_id].action_end*/
             });
         });
     }

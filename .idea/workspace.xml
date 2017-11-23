@@ -4,7 +4,6 @@
     <list default="true" id="1482c26e-6d98-46ae-96c3-3a0f7a86dafc" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/interpreter.js" afterPath="$PROJECT_DIR$/interpreter.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/view/index.twig" afterPath="$PROJECT_DIR$/view/index.twig" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -104,15 +103,15 @@
       <file leaf-file-name="interpreter.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/interpreter.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="558">
-              <caret line="98" column="12" lean-forward="true" selection-start-line="98" selection-start-column="12" selection-end-line="107" selection-end-column="13" />
+            <state relative-caret-position="416">
+              <caret line="143" column="56" lean-forward="false" selection-start-line="143" selection-start-column="56" selection-end-line="143" selection-end-column="56" />
               <folding>
-                <element signature="e#3697#3730#0" expanded="false" />
-                <element signature="e#3760#3795#0" expanded="false" />
-                <element signature="e#3825#3855#0" expanded="false" />
-                <element signature="e#3882#3914#0" expanded="false" />
-                <element signature="e#3950#3992#0" expanded="false" />
-                <element signature="e#4022#4149#0" expanded="false" />
+                <element signature="e#4542#4575#0" expanded="false" />
+                <element signature="e#4605#4640#0" expanded="false" />
+                <element signature="e#4670#4700#0" expanded="false" />
+                <element signature="e#4727#4759#0" expanded="false" />
+                <element signature="e#4795#4837#0" expanded="false" />
+                <element signature="e#4867#4988#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -251,8 +250,8 @@
   <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="65" />
     <option name="y" value="-4" />
-    <option name="width" value="1855" />
-    <option name="height" value="1084" />
+    <option name="width" value="1857" />
+    <option name="height" value="1092" />
   </component>
   <component name="ProjectInspectionProfilesVisibleTreeState">
     <entry key="Project Default">
@@ -395,7 +394,7 @@
       <workItem from="1511169312084" duration="6038000" />
       <workItem from="1511257542381" duration="14865000" />
       <workItem from="1511350888726" duration="13936000" />
-      <workItem from="1511427606446" duration="9524000" />
+      <workItem from="1511427606446" duration="13049000" />
     </task>
     <task id="LOCAL-00001" summary="CRUD Update">
       <created>1510764335965</created>
@@ -453,11 +452,18 @@
       <option name="project" value="LOCAL" />
       <updated>1511371290740</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="interpreter step 1 Update">
+      <created>1511441836380</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1511441836380</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="159305000" />
+    <option name="totallyTimeSpent" value="162830000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -509,7 +515,8 @@
     <MESSAGE value="Update DB dump" />
     <MESSAGE value="project settings" />
     <MESSAGE value="interpreter" />
-    <option name="LAST_COMMIT_MESSAGE" value="interpreter" />
+    <MESSAGE value="interpreter step 1 Update" />
+    <option name="LAST_COMMIT_MESSAGE" value="interpreter step 1 Update" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -970,15 +977,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/interpreter.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="558">
-          <caret line="98" column="12" lean-forward="true" selection-start-line="98" selection-start-column="12" selection-end-line="107" selection-end-column="13" />
+        <state relative-caret-position="416">
+          <caret line="143" column="56" lean-forward="false" selection-start-line="143" selection-start-column="56" selection-end-line="143" selection-end-column="56" />
           <folding>
-            <element signature="e#3697#3730#0" expanded="false" />
-            <element signature="e#3760#3795#0" expanded="false" />
-            <element signature="e#3825#3855#0" expanded="false" />
-            <element signature="e#3882#3914#0" expanded="false" />
-            <element signature="e#3950#3992#0" expanded="false" />
-            <element signature="e#4022#4149#0" expanded="false" />
+            <element signature="e#4542#4575#0" expanded="false" />
+            <element signature="e#4605#4640#0" expanded="false" />
+            <element signature="e#4670#4700#0" expanded="false" />
+            <element signature="e#4727#4759#0" expanded="false" />
+            <element signature="e#4795#4837#0" expanded="false" />
+            <element signature="e#4867#4988#0" expanded="false" />
           </folding>
         </state>
       </provider>
