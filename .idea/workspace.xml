@@ -2,11 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1482c26e-6d98-46ae-96c3-3a0f7a86dafc" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/interpreter.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/view/interpreter.twig" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app.php" afterPath="$PROJECT_DIR$/app.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/interpreter.js" afterPath="$PROJECT_DIR$/interpreter.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/view/index.twig" afterPath="$PROJECT_DIR$/view/index.twig" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -107,13 +104,15 @@
       <file leaf-file-name="interpreter.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/interpreter.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="133">
-              <caret line="131" column="48" lean-forward="false" selection-start-line="131" selection-start-column="48" selection-end-line="131" selection-end-column="48" />
+            <state relative-caret-position="558">
+              <caret line="98" column="12" lean-forward="true" selection-start-line="98" selection-start-column="12" selection-end-line="107" selection-end-column="13" />
               <folding>
-                <element signature="e#2773#2806#0" expanded="false" />
-                <element signature="e#2836#2871#0" expanded="false" />
-                <element signature="e#2901#2931#0" expanded="false" />
-                <element signature="e#2958#2990#0" expanded="false" />
+                <element signature="e#3697#3730#0" expanded="false" />
+                <element signature="e#3760#3795#0" expanded="false" />
+                <element signature="e#3825#3855#0" expanded="false" />
+                <element signature="e#3882#3914#0" expanded="false" />
+                <element signature="e#3950#3992#0" expanded="false" />
+                <element signature="e#4022#4149#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -122,28 +121,9 @@
       <file leaf-file-name="AdminPanelModel.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/api/Model/AdminPanelModel.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="414">
+            <state relative-caret-position="2736">
               <caret line="152" column="4" lean-forward="false" selection-start-line="152" selection-start-column="4" selection-end-line="152" selection-end-column="4" />
               <folding>
-                <element signature="e#27#49#0#PHP" expanded="true" />
-                <element signature="e#174#894#0#PHP" expanded="false" />
-                <element signature="e#897#2129#0#PHP" expanded="false" />
-                <element signature="e#999#1413#0#PHP" expanded="false" />
-                <element signature="e#1417#2103#0#PHP" expanded="false" />
-                <element signature="e#2131#2218#0#PHP" expanded="false" />
-                <element signature="e#2220#2407#0#PHP" expanded="false" />
-                <element signature="e#2409#2652#0#PHP" expanded="false" />
-                <element signature="e#2654#2823#0#PHP" expanded="false" />
-                <element signature="e#2826#3246#0#PHP" expanded="false" />
-                <element signature="e#3248#3719#0#PHP" expanded="false" />
-                <element signature="e#3721#3989#0#PHP" expanded="false" />
-                <element signature="e#3992#4098#0#PHP" expanded="false" />
-                <element signature="e#4101#4347#0#PHP" expanded="false" />
-                <element signature="e#4349#4561#0#PHP" expanded="false" />
-                <element signature="e#4563#4898#0#PHP" expanded="false" />
-                <element signature="e#4901#5002#0#PHP" expanded="false" />
-                <element signature="e#5004#5155#0#PHP" expanded="false" />
-                <element signature="e#5157#5294#0#PHP" expanded="false" />
                 <marker date="1510914017183" expanded="true" signature="506:866" ph="SELECT adm.i... admin_panel" />
                 <marker date="1510914017183" expanded="true" signature="2721:2762" ph="SELECT id FR... admin_panel" />
                 <marker date="1510914017183" expanded="true" signature="3058:3110" ph="..." />
@@ -182,6 +162,8 @@
       <find>settime</find>
       <find>steps</find>
       <find>arraySteps</find>
+      <find>arrayOfActiveSteps</find>
+      <find>all_steps</find>
     </findStrings>
     <replaceStrings>
       <replace>$adminController</replace>
@@ -412,7 +394,8 @@
       <workItem from="1510909833065" duration="14679000" />
       <workItem from="1511169312084" duration="6038000" />
       <workItem from="1511257542381" duration="14865000" />
-      <workItem from="1511350888726" duration="13709000" />
+      <workItem from="1511350888726" duration="13936000" />
+      <workItem from="1511427606446" duration="9524000" />
     </task>
     <task id="LOCAL-00001" summary="CRUD Update">
       <created>1510764335965</created>
@@ -456,11 +439,25 @@
       <option name="project" value="LOCAL" />
       <updated>1510924588774</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="project settings">
+      <created>1511371244769</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1511371244769</updated>
+    </task>
+    <task id="LOCAL-00008" summary="interpreter">
+      <created>1511371290739</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1511371290740</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="149554000" />
+    <option name="totallyTimeSpent" value="159305000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -472,21 +469,21 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="65" y="-4" width="1855" height="1084" extended-state="6" />
+    <frame x="65" y="-4" width="1857" height="1092" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Remote Host" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.29353234" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2968491" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32984293" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25968587" sideWeight="0.50193477" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.20563847" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="File Transfer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.14764398" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2498618" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25968587" sideWeight="0.49806523" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -510,7 +507,9 @@
     <MESSAGE value="Log Service complete" />
     <MESSAGE value="Logs added" />
     <MESSAGE value="Update DB dump" />
-    <option name="LAST_COMMIT_MESSAGE" value="Update DB dump" />
+    <MESSAGE value="project settings" />
+    <MESSAGE value="interpreter" />
+    <option name="LAST_COMMIT_MESSAGE" value="interpreter" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -546,25 +545,6 @@
         <state relative-caret-position="360">
           <caret line="156" column="32" lean-forward="true" selection-start-line="156" selection-start-column="32" selection-end-line="156" selection-end-column="32" />
           <folding>
-            <element signature="e#27#49#0#PHP" expanded="true" />
-            <element signature="e#174#894#0#PHP" expanded="false" />
-            <element signature="e#897#2129#0#PHP" expanded="false" />
-            <element signature="e#999#1413#0#PHP" expanded="false" />
-            <element signature="e#1417#2103#0#PHP" expanded="false" />
-            <element signature="e#2131#2218#0#PHP" expanded="false" />
-            <element signature="e#2220#2407#0#PHP" expanded="false" />
-            <element signature="e#2409#2652#0#PHP" expanded="false" />
-            <element signature="e#2654#2823#0#PHP" expanded="false" />
-            <element signature="e#2826#3246#0#PHP" expanded="false" />
-            <element signature="e#3248#3719#0#PHP" expanded="false" />
-            <element signature="e#3721#3989#0#PHP" expanded="false" />
-            <element signature="e#3992#4098#0#PHP" expanded="false" />
-            <element signature="e#4101#4347#0#PHP" expanded="false" />
-            <element signature="e#4349#4561#0#PHP" expanded="false" />
-            <element signature="e#4563#4898#0#PHP" expanded="false" />
-            <element signature="e#4901#5002#0#PHP" expanded="false" />
-            <element signature="e#5004#5155#0#PHP" expanded="false" />
-            <element signature="e#5157#5294#0#PHP" expanded="false" />
             <marker date="1510914017183" expanded="true" signature="506:866" ph="SELECT adm.i... admin_panel" />
             <marker date="1510914017183" expanded="true" signature="2721:2762" ph="SELECT id FR... admin_panel" />
             <marker date="1510914017183" expanded="true" signature="3058:3110" ph="..." />
@@ -647,25 +627,6 @@
         <state relative-caret-position="18">
           <caret line="1" column="18" lean-forward="false" selection-start-line="1" selection-start-column="18" selection-end-line="1" selection-end-column="18" />
           <folding>
-            <element signature="e#27#49#0#PHP" expanded="true" />
-            <element signature="e#174#894#0#PHP" expanded="false" />
-            <element signature="e#897#2129#0#PHP" expanded="false" />
-            <element signature="e#999#1413#0#PHP" expanded="false" />
-            <element signature="e#1417#2103#0#PHP" expanded="false" />
-            <element signature="e#2131#2218#0#PHP" expanded="false" />
-            <element signature="e#2220#2407#0#PHP" expanded="false" />
-            <element signature="e#2409#2652#0#PHP" expanded="false" />
-            <element signature="e#2654#2823#0#PHP" expanded="false" />
-            <element signature="e#2826#3246#0#PHP" expanded="false" />
-            <element signature="e#3248#3719#0#PHP" expanded="false" />
-            <element signature="e#3721#3989#0#PHP" expanded="false" />
-            <element signature="e#3992#4098#0#PHP" expanded="false" />
-            <element signature="e#4101#4347#0#PHP" expanded="false" />
-            <element signature="e#4349#4561#0#PHP" expanded="false" />
-            <element signature="e#4563#4898#0#PHP" expanded="false" />
-            <element signature="e#4901#5002#0#PHP" expanded="false" />
-            <element signature="e#5004#5155#0#PHP" expanded="false" />
-            <element signature="e#5157#5294#0#PHP" expanded="false" />
             <marker date="1510914017183" expanded="true" signature="506:866" ph="SELECT adm.i... admin_panel" />
             <marker date="1510914017183" expanded="true" signature="2721:2762" ph="SELECT id FR... admin_panel" />
             <marker date="1510914017183" expanded="true" signature="3058:3110" ph="..." />
@@ -949,28 +910,9 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/api/Model/AdminPanelModel.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="414">
+        <state relative-caret-position="2736">
           <caret line="152" column="4" lean-forward="false" selection-start-line="152" selection-start-column="4" selection-end-line="152" selection-end-column="4" />
           <folding>
-            <element signature="e#27#49#0#PHP" expanded="true" />
-            <element signature="e#174#894#0#PHP" expanded="false" />
-            <element signature="e#897#2129#0#PHP" expanded="false" />
-            <element signature="e#999#1413#0#PHP" expanded="false" />
-            <element signature="e#1417#2103#0#PHP" expanded="false" />
-            <element signature="e#2131#2218#0#PHP" expanded="false" />
-            <element signature="e#2220#2407#0#PHP" expanded="false" />
-            <element signature="e#2409#2652#0#PHP" expanded="false" />
-            <element signature="e#2654#2823#0#PHP" expanded="false" />
-            <element signature="e#2826#3246#0#PHP" expanded="false" />
-            <element signature="e#3248#3719#0#PHP" expanded="false" />
-            <element signature="e#3721#3989#0#PHP" expanded="false" />
-            <element signature="e#3992#4098#0#PHP" expanded="false" />
-            <element signature="e#4101#4347#0#PHP" expanded="false" />
-            <element signature="e#4349#4561#0#PHP" expanded="false" />
-            <element signature="e#4563#4898#0#PHP" expanded="false" />
-            <element signature="e#4901#5002#0#PHP" expanded="false" />
-            <element signature="e#5004#5155#0#PHP" expanded="false" />
-            <element signature="e#5157#5294#0#PHP" expanded="false" />
             <marker date="1510914017183" expanded="true" signature="506:866" ph="SELECT adm.i... admin_panel" />
             <marker date="1510914017183" expanded="true" signature="2721:2762" ph="SELECT id FR... admin_panel" />
             <marker date="1510914017183" expanded="true" signature="3058:3110" ph="..." />
@@ -1028,13 +970,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/interpreter.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="133">
-          <caret line="131" column="48" lean-forward="false" selection-start-line="131" selection-start-column="48" selection-end-line="131" selection-end-column="48" />
+        <state relative-caret-position="558">
+          <caret line="98" column="12" lean-forward="true" selection-start-line="98" selection-start-column="12" selection-end-line="107" selection-end-column="13" />
           <folding>
-            <element signature="e#2773#2806#0" expanded="false" />
-            <element signature="e#2836#2871#0" expanded="false" />
-            <element signature="e#2901#2931#0" expanded="false" />
-            <element signature="e#2958#2990#0" expanded="false" />
+            <element signature="e#3697#3730#0" expanded="false" />
+            <element signature="e#3760#3795#0" expanded="false" />
+            <element signature="e#3825#3855#0" expanded="false" />
+            <element signature="e#3882#3914#0" expanded="false" />
+            <element signature="e#3950#3992#0" expanded="false" />
+            <element signature="e#4022#4149#0" expanded="false" />
           </folding>
         </state>
       </provider>
