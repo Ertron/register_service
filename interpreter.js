@@ -19,48 +19,21 @@ let arrayScenarios = [
         "steps": [
             {
                 "step_id": "1",
-                "parameters": 10
+                "parameters": 80
             },
             {
                 "step_id": "2",
                 "parameters": 9000
-            }
+            },
+            /*{
+                "step_id" : "3",
+                "parameters" : 0
+            }*/
 
         ]
     }
 ];
-let activeScenario = {
-    "id": "1",
-    "popup_id": "1",
-    "steps": [
-        {
-            "step_id": "1",
-            "parameters": 10
-        },
-        {
-            "step_id": "2",
-            "parameters": 50
-        }
-    ]
-};
 
-function step_1(param) {
-    // скролл на процент страницы
-}
-
-function step_2(param) {
-    // таймаут
-    // body.offsetHeight - window.innerHeight - SCROLLED TO 100%
-}
-
-function step_3() {
-    // маусаут с браузера
-}
-
-let body = document.body;
-let pageHeight = body.offsetHeight; // page height
-let scrollTop = window.scrollY; // window scroll TOP Corner
-let windowHeight = window.innerHeight; // window HEIGHT
 
 function findIndexByParam(array, param_name, param_value) {
     let result;
@@ -77,37 +50,28 @@ var scenarioClass = (function (inc_steps) {
     let scenario_id = '';
     let popup_id = '';
     let arrayOfActiveSteps = [];
+    let show_popup = true;
     // default steps
     let steps = {
         1 : {
             "param" : 30,
             "method" : function (step_id) {
                 console.log('scrollTop method : ', window.scrollY);
-                console.log('Method this : ', activeScenario);
-                function rrr() {
+                function watcher() {
                     let index = findIndexByParam(arrayOfActiveSteps, 'step_id', step_id);
+                    let body = document.body;
                     if(window.scrollY > ((body.offsetHeight - window.innerHeight)/100 * arrayOfActiveSteps[index].parameters)){
                         console.error('krasava!!!');
                         console.log('arrayOfActiveSteps : ', arrayOfActiveSteps);
                         console.log('THOSE : ', index);
                         arrayOfActiveSteps[index].is_checked = true;
                         console.log('activateSteps : ', arrayOfActiveSteps);
-                        window.removeEventListener('scroll', rrr);
+                        window.removeEventListener('scroll', watcher);
                         showPopup();
                     }
                 }
-                window.addEventListener('scroll', rrr);
+                window.addEventListener('scroll', watcher);
             },
-            /*"action_start" : function (id) {
-                console.log('action start id 1');
-
-            },
-            "action_end" : function (id, callback) {
-                console.log('action end id 1 : ', id);
-                console.log('action end this : ', this);
-                callback();
-
-            }*/
         },
          2 : {
              "param" : 2000,
@@ -120,15 +84,25 @@ var scenarioClass = (function (inc_steps) {
                      showPopup();
                  }, arrayOfActiveSteps[index].parameters);
              },
-             /*"action_start" : function () {
-                 console.log('action start id 2');
-                 let index = findIndexByParam(arrayOfActiveSteps, 'step_id', 2);
-                 /!*arrayOfActiveSteps[index] = *!/
-             },
-             "action_end" : function () {
-                 console.log('action end id 2');
-             }*/
          },
+        3 : {
+            "param" : 0,
+            "method" : function () {
+                console.log('active Step 3');
+                /*window.onbeforeunload = function(){
+                    myfun();
+                    return 'Are you sure you want to leave?';
+                };*/
+                function watcher() {
+                    alert('STOP!');
+                    console.log('watcher');
+                    window.removeEventListener('mouseout', watcher);
+                    emergencyStepCheck();
+                    showPopup();
+                }
+                window.addEventListener('mouseout', watcher);
+            }
+        }
     };
 
     function allStepsChecked() {
@@ -146,8 +120,10 @@ var scenarioClass = (function (inc_steps) {
     }
 
     function showPopup() {
-        if(allStepsChecked()){
+        if(allStepsChecked() && show_popup){
             console.info('ALL CHECKED');
+            show_popup = false;
+            alert('POPUP');
         }
         else{
             console.info('NOT ALL CHECKED');
@@ -211,22 +187,57 @@ var scenarioClass = (function (inc_steps) {
     }
 });
 
-let test = new scenarioClass(arrayScenarios[1]);
-/*steps[1].action_start(1);
-steps[1].method();*/
+let scenario = arrayScenarios[1];
 
-function addEvent(action, id){
-    window.addEventListener(action, zzz);
+function startApp() {
+
+    var XHR = ("onload" in new XMLHttpRequest()) ? XMLHttpRequest : XDomainRequest;
+
+    var xhr = new XHR();
+    /*var json = JSON.stringify({
+        host : "optimization5.guide"
+    });*/
+    /*var json = JSON.stringify({
+        popup_id: "33",
+        steps: [
+            {
+                "step_id": "1",
+                "parameters": {
+                    "param1": "77",
+                    "param2": "54"
+                    }
+            },
+            {
+                "step_id": "2",
+                "parameters": {
+                    "param1": "1",
+                    "param2": "2"
+                }
+            }],
+        filters: {
+            "geo": {},
+            "device": {},
+            "time_table": {},
+            "user_access": {"new" : 0, "old" : 1}
+        }
+    });*/
+
+    /*xhr.open('POST', 'api/adminp/6/page/3/scenario', true);*/
+    xhr.open('GET', 'http://magic.com/', true);
+
+    xhr.onload = function() {
+        console.log('onload : ', this.response);
+        scenario = JSON.parse(this.response);
+        let startScenario = new scenarioClass(scenario);
+    };
+
+    xhr.onerror = function() {
+        alert( 'Ошибка ' + this.status );
+        let startScenario = new scenarioClass(scenario);
+    };
+
+    xhr.send();
+
 }
-function removeEvent(action, id){
-    setTimeout(function () {
-        console.error('rhaaaaa!');
-        window.removeEventListener(action, zzz);
-        /*alert('after 5 sec');*/
-    }, 5000);
-}
-
-/*addEvent('scroll', 1);
-removeEvent('scroll', 1);*/
-
+startApp();
 
