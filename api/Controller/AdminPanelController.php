@@ -41,7 +41,12 @@ $adminController->post('/', function (Request $request) use ($app, $adminPanel){
 		$app['log']->addLog('admin_panel', $result['id'], 'create');
 		$result['result'] = 'New Admin Panel added to DB';
 	}
-	return $app->json($result);
+	$result = json_encode($result);
+	$response = new Response($result, 201);
+	/*$response->headers->set('Access-Control-Allow-Origin', '*');*/
+	$response->headers->set('Content-Type', 'application/json');
+	return $response;
+	/*return $app->json($result);*/
 });
 
 // Add Landing Page to Admin Panel
@@ -57,8 +62,10 @@ $adminController->post('/{id}/page', function ($id, Request $request) use ($app,
 		$app['log']->addLog('landing_page', $result['id'], 'create');
 		$result['result'] = 'New Landing Page added to yours Admin Panel';
 	}
-
-	return $app->json($result);
+	$result = json_encode($result);
+	$response = new Response($result, 201);
+	$response->headers->set('Content-Type', 'application/json');
+	return $response;
 });
 
 // Add Scenario to Landing Page
@@ -75,8 +82,10 @@ $adminController->post('/{id}/page/{lp_id}/scenario', function ($id, $lp_id, Req
 		$app['log']->addLog('scenario', $result['id'], 'create');
 		$result['result'] = 'New Scenario added to yours Landing Page';
 	}
-
-	return $app->json($result);
+	$result = json_encode($result);
+	$response = new Response($result, 201);
+	$response->headers->set('Content-Type', 'application/json');
+	return $response;
 });
 
 // Delete Admin Panel

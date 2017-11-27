@@ -40,7 +40,7 @@ $app->get('/', function() use ($app) {
 
 $app->get('/inter', function() use ($app) {
 	return $app['twig']->render('interpreter.twig', array());
-})->bind('index');
+})->bind('inter');
 
 $app->before(function(Request $request) use($app){
 	$adm = new api\Model\AdminPanelModel($app['db']);
