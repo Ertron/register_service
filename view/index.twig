@@ -7,7 +7,39 @@
 </head>
     <body style="padding: 10px 50px; margin: 0;">
         <h2>Documentation</h2>
-        <button onclick="testQuery();">test Query</button>
+        <div style="max-width: 1200px; width: 100%; margin: 20px auto;">
+            <p style="font-size: 20px; font-style: italic;">method <b>GET</b></p>
+            <i>/api/adminp/</i> - Все зарегистрированные админки и их данные
+            <br>
+            <i>/api/adminp/x</i> (где x - id админки) - админка с id <b>x</b> и ее данные
+            <br>
+            <i>/api/adminp/x/page/y</i> (где x - id админки, y - id страницы) - Страница/LP с id <b>y</b> и ее данные
+            <br>
+            <i>/api/adminp/x/page/y/scenarios/z</i> (где x - id админки, y - id страницы, z - id сценария)
+            - Сценарий с id <b>z</b> и его данные
+            <br>
+            <br>
+            <p style="font-size: 20px; font-style: italic;">method <b>POST</b></p>
+            <i>/api/adminp/</i> - регистрация новой админки. Params: {host: name} name - доменное имя админки
+            <br>
+            <i>/api/adminp/x/page</i> (где x - id админки) - добавление новой страницы/LP. Params: {url: name} name - ссылка на LP
+            <br>
+            <i>/api/adminp/x/page/y/scenario</i> (где x - id админки, y - id страницы) - добавление нового сценария.
+            Params: {popup_id: ppid, steps: steps_arr, filters: filters_arr}
+            ppid - id popup'а, steps_arr - массив JSON объектов с шагами, filters_arr - массив JSON объектов с фильтрами
+            <br>
+            <br>
+            <p style="font-size: 20px; font-style: italic;">method <b>DELETE</b></p>
+            <i>/api/adminp/x</i> (где x - id админки) - Удаление админки с id <b>x</b> и ее данные
+            <br>
+            <i>/api/adminp/x/page/y</i> (где x - id админки, y - id страницы) - Удаление страницы/LP с id <b>y</b> и ее данные
+            <br>
+            <i>/api/adminp/x/page/y/scenarios/z</i> (где x - id админки, y - id страницы, z - id сценария)
+            - Удаление сценария с id <b>z</b> и его данные
+            <br>
+
+        </div>
+        {#<button onclick="testQuery();">test Query</button>#}
         <script>
             function testQuery() {
 
