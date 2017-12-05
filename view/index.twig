@@ -47,7 +47,7 @@
 
                 var xhr = new XHR();
                 var json = JSON.stringify({
-                    host : "optimization6.guide"
+                    url : "test_nat45"
                 });
                 /*var json = JSON.stringify({
                     popup_id: "33",
@@ -74,7 +74,7 @@
                     }
                 });*/
 
-                xhr.open('POST', 'api/adminp/', true);
+                xhr.open('POST', 'api/adminp/4/page', true);
                 /*xhr.open('GET', 'http://magic.com/', true);*/
 
                 xhr.onload = function() {
