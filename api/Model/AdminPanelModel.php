@@ -36,6 +36,7 @@ class AdminPanelModel {
 
 		foreach ($input as $item){
 
+			$adminp_arr[$item['adminp_id']][$item['lp_id']]['id'] = $item['lp_id'];
 			$adminp_arr[$item['adminp_id']][$item['lp_id']]['url'] = $item['url'];
 			$scenario = array('id' => $item['scenario_id'], 'popup_id' => $item['popup_id'],
 			                  'steps' => json_decode($item['steps'], true), 'filters' => json_decode($item['filters'], true));
@@ -51,6 +52,7 @@ class AdminPanelModel {
 			foreach ($value as $key_lp => $value_lp){
 				$scenarios = array();
 				$land_obj = new stdClass();
+				$land_obj->id = $value_lp['id'];
 				$land_obj->url = $value_lp['url'];
 
 				foreach ($value_lp['scenarios'] as $key_sc => $value_sc){
@@ -116,11 +118,13 @@ class AdminPanelModel {
 			$q_part = 'id';
 			$param = $id;
 		}
-		$sql = "SELECT *
+		if($host != NULL || $id){
+			$sql = "SELECT *
 				FROM admin_panel 
 				WHERE ".$q_part." = ?";
-		$query_result = $this->db->fetchAll($sql, array($param));
-		if(!empty($query_result))return true;
+			$query_result = $this->db->fetchAll($sql, array($param));
+			if(!empty($query_result))return true;
+		}
 		return false;
 	}
 	public function isSetLandingPage(int $adm_id, string $url = NULL, int $lp_id = NULL): bool {
@@ -134,14 +138,19 @@ class AdminPanelModel {
 			$q_part = 'id';
 			$param = $lp_id;
 		}
-		$sql = "SELECT *
+		if($url != NULL || $lp_id){
+			$sql = "SELECT *
 				FROM landing_page
 				WHERE admin_panel_id = ? AND ".$q_part." = ?";
-		$query_result = $this->db->fetchAll($sql, array($adm_id, $param));
-		if(!empty($query_result))return true;
+			$query_result = $this->db->fetchAll($sql, array($adm_id, $param));
+			if(!empty($query_result))return true;
+		}
 		return false;
 	}
 	public function isSetScenario(int $lp_id, int $sc_id): bool {
+		if(!$lp_id || !$sc_id){
+			return false;
+		}
 		$sql = "SELECT *
 				FROM scenario
 				WHERE landing_page_id = ? AND id = ?";
