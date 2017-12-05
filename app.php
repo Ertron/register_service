@@ -4,6 +4,7 @@ ini_set('error_reporting', E_ALL);
 ini_set('display_errors', 1);
 
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 use api\Service\LoggerService;
 
@@ -53,6 +54,9 @@ $app->before(function(Request $request) use($app){
 		//Access Denied
 		/*$app->json();*/
 	}
+});
+$app->after(function(Request $request, Response $response) use ($app){
+	$response->headers->set('Access-Control-Allow-Origin', '*');
 });
 
 $app->run();
