@@ -26,8 +26,11 @@ class ComposerStaticInit07e8b4449bbd40f50f589b522b6fdf65
             'Symfony\\Component\\HttpFoundation\\' => 33,
             'Symfony\\Component\\Filesystem\\' => 29,
             'Symfony\\Component\\EventDispatcher\\' => 34,
+            'Symfony\\Component\\DomCrawler\\' => 29,
             'Symfony\\Component\\Debug\\' => 24,
+            'Symfony\\Component\\CssSelector\\' => 30,
             'Symfony\\Component\\Config\\' => 25,
+            'Symfony\\Component\\BrowserKit\\' => 29,
             'Symfony\\Bridge\\Twig\\' => 20,
             'Silex\\' => 6,
         ),
@@ -79,13 +82,25 @@ class ComposerStaticInit07e8b4449bbd40f50f589b522b6fdf65
         array (
             0 => __DIR__ . '/..' . '/symfony/event-dispatcher',
         ),
+        'Symfony\\Component\\DomCrawler\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/dom-crawler',
+        ),
         'Symfony\\Component\\Debug\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/debug',
         ),
+        'Symfony\\Component\\CssSelector\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/css-selector',
+        ),
         'Symfony\\Component\\Config\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/config',
+        ),
+        'Symfony\\Component\\BrowserKit\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/browser-kit',
         ),
         'Symfony\\Bridge\\Twig\\' => 
         array (

@@ -44,13 +44,17 @@ $app->get('/inter', function() use ($app) {
 })->bind('inter');
 
 $app->before(function(Request $request) use($app){
+
 	$adm = new api\Model\AdminPanelModel($app['db']);
 	$app['host_info.hostname'] = $request->getHost();
 	$app['host_info.is_registered'] = $adm->isSetAdminPanel($app['host_info.hostname']);
+	$app['host_info.is_registered'] = true; // for tests
 	if($app['host_info.is_registered']){
-		$app['log'] = new LoggerService($adm->getAdminPanelIdByHostname($app['host_info.hostname']), $app['db']);
+		$app['log'] = new LoggerService(5, $app['db']); // for tests
+		/*$app['log'] = new LoggerService($adm->getAdminPanelIdByHostname($app['host_info.hostname']), $app['db']);*/
 	}
 	else{
+		/*$app['log'] = new LoggerService($adm->getAdminPanelIdByHostname($app['host_info.hostname']), $app['db']);*/
 		//Access Denied
 		/*$app->json();*/
 	}

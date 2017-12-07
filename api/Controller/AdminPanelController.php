@@ -2,6 +2,8 @@
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use api\Model\AdminPanelModel;
+use api\Service\ScenarioValidator;
+
 $adminPanel = new AdminPanelModel($app['db']);
 $adminController = $app['controllers_factory'];
 
@@ -18,6 +20,7 @@ $adminController->get('/{id}', function ($id) use ($app, $adminPanel) {
 	return $app->json($adminPanel->getFullInfo($main));
 });
 $adminController->get('/{id}/page/{l_id}', function ($id, $l_id) use ($app, $adminPanel) {
+
 	$sql = $adminPanel->smartQueryBuilderSelect($id, $l_id);
 	$main = $app['db']->fetchAll($sql, array());
 	return $app->json($adminPanel->getLanding($main));
@@ -31,6 +34,10 @@ $adminController->get('/{id}/page/{l_id}/scenarios/{sc_id}', function ($id, $l_i
 // Add Admin Panel
 $adminController->post('/', function (Request $request) use ($app, $adminPanel){
 	$arr = json_decode($request->getContent(), true);
+	if(empty($arr['host'])){
+		$result['result'] = 'Wrong Parameters';
+		return new Response(json_encode($result), 400);
+	}
 	$name = $arr['host'];
 	$is_set_host = $adminPanel->isSetAdminPanel($name);
 	$result['id'] = NULL;
@@ -51,11 +58,14 @@ $adminController->post('/', function (Request $request) use ($app, $adminPanel){
 
 // Add Landing Page to Admin Panel
 $adminController->post('/{id}/page', function ($id, Request $request) use ($app, $adminPanel){
+	$result['result'] = 'Landing Page is not added';
+	if((int)$id == 0){
+		return new Response(json_encode($result), 400);
+	}
 	$arr = json_decode($request->getContent(), true);
 	$url = $arr['url'];
 	$is_set_host = $adminPanel->isSetLandingPage($id, $url);
 	$result['id'] = NULL;
-	$result['result'] = 'Landing Page is not added';
 
 	if(!$is_set_host){// insert
 		$result['id'] = $adminPanel->addLandingPage($id, $url);
@@ -70,12 +80,23 @@ $adminController->post('/{id}/page', function ($id, Request $request) use ($app,
 
 // Add Scenario to Landing Page
 $adminController->post('/{id}/page/{lp_id}/scenario', function ($id, $lp_id, Request $request) use ($app, $adminPanel){
+	if((int)$id == 0){
+		$result['result'] = 'Wrong Parameters';
+		return new Response(json_encode($result), 400);
+	}
 	$arr = json_decode($request->getContent(), true);
+	$validator = new ScenarioValidator();
+
 	$popup_id = $arr['popup_id'];
-	$steps = json_encode($arr['steps']);
-	$filters = json_encode($arr['filters']);
 	$result['id'] = NULL;
 	$result['result'] = 'Scenario is not added';
+	if($validator->isValidScenario($arr)){
+		$steps = json_encode($arr['steps']);
+		$filters = json_encode($arr['filters']);
+	}
+	else{
+		$result['result'] = "Wrong Parameters";
+	}
 
 	if(!empty($lp_id) && !empty($steps) && !empty($filters)){// insert
 		$result['id'] = $adminPanel->addScenario($lp_id, $popup_id, $steps, $filters);
@@ -90,8 +111,11 @@ $adminController->post('/{id}/page/{lp_id}/scenario', function ($id, $lp_id, Req
 
 // Delete Admin Panel
 $adminController->delete('/{id}', function ($id) use ($app, $adminPanel){
-	$is_set_adm = $adminPanel->isSetAdminPanel(NULL, $id);
 	$result['result'] = 'Admin Panel with this ID do not exist';
+	if((int)$id == 0){
+		return new Response(json_encode($result), 400);
+	}
+	$is_set_adm = $adminPanel->isSetAdminPanel(NULL, $id);
 	if($is_set_adm){// delete
 		$result['result'] = 'Admin Panel successfully deleted';
 		$app['log']->addLog('admin_panel', $id, 'delete');
@@ -102,8 +126,11 @@ $adminController->delete('/{id}', function ($id) use ($app, $adminPanel){
 
 // Delete Landing Page
 $adminController->delete('/{id}/page/{l_id}', function ($id, $l_id) use ($app, $adminPanel){
-	$is_set_lp = $adminPanel->isSetLandingPage($id, NULL, $lp_id = $l_id);
 	$result['result'] = 'Landing Page with this ID do not exist';
+	if((int)$id == 0 || (int)$l_id == 0){
+		return new Response(json_encode($result), 400);
+	}
+	$is_set_lp = $adminPanel->isSetLandingPage($id, NULL, $lp_id = $l_id);
 	if($is_set_lp){// delete
 		$result['result'] = 'Landing Page successfully deleted';
 		$app['log']->addLog('landing_page', $l_id, 'delete');
@@ -114,6 +141,10 @@ $adminController->delete('/{id}/page/{l_id}', function ($id, $l_id) use ($app, $
 
 // Delete Scenario
 $adminController->delete('/{id}/page/{l_id}/scenario/{sc_id}', function ($id, $l_id, $sc_id) use ($app, $adminPanel){
+	if((int)$id == 0 || (int)$l_id == 0 || (int)$sc_id == 0){
+		$result['result'] = 'Wrong Parameters';
+		return new Response(json_encode($result), 400);
+	}
 	$is_set_lp = $adminPanel->isSetScenario($l_id, $sc_id);
 	$result['result'] = 'Scenario with this ID do not exist';
 	if($is_set_lp){// delete
