@@ -48,6 +48,9 @@ $adminController->post('/', function (Request $request) use ($app, $adminPanel){
 		$app['log']->addLog('admin_panel', $result['id'], 'create');
 		$result['result'] = 'New Admin Panel added to DB';
 	}
+	else{
+		$result['result'] = 'Admin panel with this name is already registered';
+	}
 	$result = json_encode($result);
 	$response = new Response($result, 201);
 	/*$response->headers->set('Access-Control-Allow-Origin', '*');*/
@@ -78,6 +81,9 @@ $adminController->post('/{id}/page', function ($id, Request $request) use ($app,
 		$result['id'] = $adminPanel->addLandingPage($id, $url);
 		$app['log']->addLog('landing_page', $result['id'], 'create');
 		$result['result'] = 'New Landing Page added to yours Admin Panel';
+	}
+	else{
+		$result['result'] = 'Landing Page with this name is already registered';
 	}
 	$result = json_encode($result);
 	$response = new Response($result, 201);
