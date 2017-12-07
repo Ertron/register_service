@@ -62,6 +62,13 @@ $adminController->post('/{id}/page', function ($id, Request $request) use ($app,
 	if((int)$id == 0){
 		return new Response(json_encode($result), 400);
 	}
+	if(empty($arr['url'])){
+		$result['result'] = 'Wrong Parameters';
+		return new Response(json_encode($result), 400);
+	}
+	if(strlen($arr['url']) > 2048){
+		return new Response(json_encode($result), 414);
+	}
 	$arr = json_decode($request->getContent(), true);
 	$url = $arr['url'];
 	$is_set_host = $adminPanel->isSetLandingPage($id, $url);
