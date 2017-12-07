@@ -2,6 +2,7 @@
 namespace api\Model;
 use Silex\Application;
 use stdClass;
+use Symfony\Component\Config\Definition\Exception\Exception;
 
 class AdminPanelModel {
 	public $db;
@@ -176,8 +177,12 @@ class AdminPanelModel {
 		return $lp_id;
 	}
 	public function addScenario(int $lp_id, int $popup_id, string $steps, string $filters): int{
-		$this->db->insert('scenario', array('`landing_page_id`' => $lp_id, '`popup_id`'=> $popup_id,
-		                                        '`steps`' => $steps, '`filters`' => $filters));
+			$this->db->insert( 'scenario', array(
+				'`landing_page_id`' => $lp_id,
+				'`popup_id`'        => $popup_id,
+				'`steps`'           => $steps,
+				'`filters`'         => $filters
+			) );
 		$sc_id = $this->db->lastInsertId();
 		return $sc_id;
 	}

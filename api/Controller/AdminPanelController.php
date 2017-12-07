@@ -93,7 +93,7 @@ $adminController->post('/{id}/page', function ($id, Request $request) use ($app,
 
 // Add Scenario to Landing Page
 $adminController->post('/{id}/page/{lp_id}/scenario', function ($id, $lp_id, Request $request) use ($app, $adminPanel){
-	if((int)$id == 0){
+	if((int)$id == 0 || (int)$lp_id == 0){
 		$result['result'] = 'Wrong Parameters';
 		return new Response(json_encode($result), 400);
 	}
@@ -111,7 +111,8 @@ $adminController->post('/{id}/page/{lp_id}/scenario', function ($id, $lp_id, Req
 		$result['result'] = "Wrong Parameters";
 	}
 
-	if(!empty($lp_id) && !empty($steps) && !empty($filters)){// insert
+	if(!empty($lp_id) && !empty($steps) && !empty($filters) &&
+	   $adminPanel->isSetAdminPanel(NULL, $id) && $adminPanel->isSetLandingPage($id, NULL, $lp_id)){// insert
 		$result['id'] = $adminPanel->addScenario($lp_id, $popup_id, $steps, $filters);
 		$app['log']->addLog('scenario', $result['id'], 'create');
 		$result['result'] = 'New Scenario added to yours Landing Page';

@@ -14,8 +14,10 @@ class ScenarioValidator {
 
 	private function isValidSteps($array) :bool {
 		foreach ($array as $item){
-			if(!is_integer((int)$item['step_id']) || (int)$item['step_id'] == 0
-			   || !is_integer((int)$item['parameter']) || (int)$item['parameter'] == 0){
+			if(!is_integer((int)$item['step_id']) || (int)$item['step_id'] == 0 || !isset($item['parameter'])){
+				return false;
+			}
+			if(!empty($item['parameter']) && (!is_integer((int)$item['parameter']) || (int)$item['parameter'] == 0)){
 				return false;
 			}
 		}
