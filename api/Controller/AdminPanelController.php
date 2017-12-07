@@ -126,6 +126,7 @@ $adminController->post('/{id}/page/{lp_id}/scenario', function ($id, $lp_id, Req
 $adminController->delete('/{id}', function ($id) use ($app, $adminPanel){
 	$result['result'] = 'Admin Panel with this ID do not exist';
 	if((int)$id == 0){
+		$result['result'] = 'Wrong Parameters';
 		return new Response(json_encode($result), 400);
 	}
 	$is_set_adm = $adminPanel->isSetAdminPanel(NULL, $id);
@@ -141,6 +142,7 @@ $adminController->delete('/{id}', function ($id) use ($app, $adminPanel){
 $adminController->delete('/{id}/page/{l_id}', function ($id, $l_id) use ($app, $adminPanel){
 	$result['result'] = 'Landing Page with this ID do not exist';
 	if((int)$id == 0 || (int)$l_id == 0){
+		$result['result'] = 'Wrong Parameters';
 		return new Response(json_encode($result), 400);
 	}
 	$is_set_lp = $adminPanel->isSetLandingPage($id, NULL, $lp_id = $l_id);
