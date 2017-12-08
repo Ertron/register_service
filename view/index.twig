@@ -46,10 +46,10 @@
                 var XHR = ("onload" in new XMLHttpRequest()) ? XMLHttpRequest : XDomainRequest;
 
                 var xhr = new XHR();
-                /*var json = JSON.stringify({
-                    "url" : "http:/otball1111155555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555111"
-                });*/
                 var json = JSON.stringify({
+                    "url" : "http:/otball1111155555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555111"
+                });
+                /*var json = JSON.stringify({
                     scenario_id: 3,
                     popup_id: 33,
                     steps: [
@@ -67,11 +67,18 @@
                         time_table : {},
                         user_access : {new : 0, old : 1}
                     }
-                });
+                });*/
+                /*var json = JSON.stringify({
+                    popup_id: 1,
+                    steps: [{step_id:1,parameter:55}],
+                    filters: {geo: {},
+                        device: {},
+                        time_table: {},
+                        user_access: {new: 0,old: 1}}});*/
 
                 /*xhr.open('delete', '/api/adminp/asdsa', true);*/
-                xhr.open('post', '/api/adminp/6/page/4/scenario', true);
-                /*xhr.open('post', '/api/adminp/5/page/1/scenario', true);*/
+                xhr.open('post', '/api/adminp/7/page', true);
+                /*xhr.open('post', '/api/adminp/5/page/2332/scenario', true);*/
                 /*xhr.open('post', 'http://localhost:8080/api/adminp/', true);*/
                 /*xhr.open('GET', 'http://magic.com/', true);*/
 

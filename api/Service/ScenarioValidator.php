@@ -103,6 +103,9 @@ class ScenarioValidator {
 		return true;
 	}
 	public function isValidScenario($array) :bool {
+		if(!isset($array['scenario_id']) || !isset($array['popup_id']) || !isset($array['steps']) || !isset($array['filters'])){
+			return false;
+		}
 		if(!is_integer((int)$array['scenario_id']) || (int)$array['scenario_id'] == 0){
 			return false;
 		}

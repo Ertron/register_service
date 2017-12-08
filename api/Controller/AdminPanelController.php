@@ -8,8 +8,11 @@ $adminPanel = new AdminPanelModel($app['db']);
 $adminController = $app['controllers_factory'];
 
 
-$adminController->get('/', function () use ($app, $adminPanel) {
-
+$adminController->get('/', function (Request $request) use ($app, $adminPanel) {
+	/*echo '<pre>';
+	var_dump($request->getPathInfo());
+	var_dump($request->getHost());
+	exit();*/
 	$sql = $adminPanel->smartQueryBuilderSelect();
 	$main = $app['db']->fetchAll($sql, array());
 	return $app->json($adminPanel->getFullInfo($main));
@@ -26,6 +29,9 @@ $adminController->get('/{id}/page/{l_id}', function ($id, $l_id) use ($app, $adm
 	return $app->json($adminPanel->getLanding($main));
 });
 $adminController->get('/{id}/page/{l_id}/scenarios/{sc_id}', function ($id, $l_id, $sc_id) use ($app, $adminPanel) {
+	if(!$adminPanel->isSetScenario($id, $l_id, $sc_id)){
+		return new Response('', 404);
+	}
 	$sql = $adminPanel->smartQueryBuilderSelect($id, $l_id, $sc_id);
 	$main = $app['db']->fetchAll($sql, array());
 	return $app->json($adminPanel->getScenario($main));
@@ -61,18 +67,18 @@ $adminController->post('/', function (Request $request) use ($app, $adminPanel){
 
 // Add Landing Page to Admin Panel
 $adminController->post('/{id}/page', function ($id, Request $request) use ($app, $adminPanel){
+	$arr = json_decode($request->getContent(), true);
 	$result['result'] = 'Landing Page is not added';
 	if((int)$id == 0){
 		return new Response(json_encode($result), 400);
 	}
-	if(empty($arr['url'])){
+	if(empty($arr['url']) || !$adminPanel->isSetAdminPanel(NULL, $id) ){
 		$result['result'] = 'Wrong Parameters';
 		return new Response(json_encode($result), 400);
 	}
 	if(strlen($arr['url']) > 2048){
 		return new Response(json_encode($result), 414);
 	}
-	$arr = json_decode($request->getContent(), true);
 	$url = $arr['url'];
 	$is_set_host = $adminPanel->isSetLandingPage($id, $url);
 	$result['id'] = NULL;
@@ -93,14 +99,14 @@ $adminController->post('/{id}/page', function ($id, Request $request) use ($app,
 
 // Add Scenario to Landing Page
 $adminController->post('/{id}/page/{lp_id}/scenario', function ($id, $lp_id, Request $request) use ($app, $adminPanel){
+	$status_code = 400;
 	if((int)$id == 0 || (int)$lp_id == 0){
 		$result['result'] = 'Wrong Parameters';
-		return new Response(json_encode($result), 400);
+		return new Response(json_encode($result), $status_code);
 	}
 	$arr = json_decode($request->getContent(), true);
 	$validator = new ScenarioValidator();
 
-	$popup_id = $arr['popup_id'];
 	$result['id'] = NULL;
 	$result['result'] = 'Scenario is not added';
 	if($validator->isValidScenario($arr)){
@@ -110,15 +116,15 @@ $adminController->post('/{id}/page/{lp_id}/scenario', function ($id, $lp_id, Req
 	else{
 		$result['result'] = "Wrong Parameters";
 	}
-
 	if(!empty($lp_id) && !empty($steps) && !empty($filters) &&
 	   $adminPanel->isSetAdminPanel(NULL, $id) && $adminPanel->isSetLandingPage($id, NULL, $lp_id)){// insert
-		$result['id'] = $adminPanel->addScenario($lp_id, $popup_id, $steps, $filters);
+		$result['id'] = $adminPanel->addScenario($lp_id, $arr['popup_id'], $steps, $filters);
 		$app['log']->addLog('scenario', $result['id'], 'create');
 		$result['result'] = 'New Scenario added to yours Landing Page';
+		$status_code = 201;
 	}
 	$result = json_encode($result);
-	$response = new Response($result, 201);
+	$response = new Response($result, $status_code);
 	$response->headers->set('Content-Type', 'application/json');
 	return $response;
 });
