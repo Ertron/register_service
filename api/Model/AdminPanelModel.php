@@ -39,7 +39,7 @@ class AdminPanelModel {
 
 			$adminp_arr[$item['adminp_id']][$item['lp_id']]['id'] = $item['lp_id'];
 			$adminp_arr[$item['adminp_id']][$item['lp_id']]['url'] = $item['url'];
-			$scenario = array('id' => $item['scenario_id'], 'popup_id' => $item['popup_id'],
+			$scenario = array('scenario_id' => $item['scenario_id'], 'popup_id' => $item['popup_id'],
 			                  'steps' => json_decode($item['steps'], true), 'filters' => json_decode($item['filters'], true));
 			$adminp_arr[$item['adminp_id']][$item['lp_id']]['scenarios'][$item['scenario_id']] = (object)$scenario;
 		}
@@ -48,16 +48,16 @@ class AdminPanelModel {
 			$adm_obj = new stdClass();
 			$lands = array();
 
-			$adm_obj->id_admin = $key;
+			$adm_obj->admin_id = $key;
 
 			foreach ($value as $key_lp => $value_lp){
 				$scenarios = array();
 				$land_obj = new stdClass();
-				$land_obj->id = $value_lp['id'];
+				$land_obj->lp_id = $value_lp['id'];
 				$land_obj->url = $value_lp['url'];
 
 				foreach ($value_lp['scenarios'] as $key_sc => $value_sc){
-					if($value_sc->id != NULL){
+					if($value_sc->scenario_id != NULL){
 						$scenarios[] = $value_sc;
 					}
 					else{
