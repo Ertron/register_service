@@ -1,8 +1,6 @@
 <?php
 namespace api\Model;
-use Silex\Application;
 use stdClass;
-use Symfony\Component\Config\Definition\Exception\Exception;
 
 class AdminPanelModel {
 	public $db;
@@ -170,13 +168,32 @@ class AdminPanelModel {
 		return false;
 	}
 
-	private function keyGenarator(string $hostName): string {
+	private function keyGenerator(string $hostName): string {
 		$result = md5($hostName);
 		return $result;
 	}
+	public function lpLinkGenerator(string $url_str) :string{
+		$url = trim($url_str);
+
+		if (!preg_match('#^http(s)?://#', $url)) {
+			$url = 'http://' . $url;
+		}
+
+		$urlParts = parse_url($url);
+
+		$domain = preg_replace('/^www\./', '', $urlParts['host']);
+		$uri = explode('#', $urlParts['path']);
+		$uri = $uri[0];
+		$uri = explode('?', $urlParts['path']);
+		$uri = $uri[0];
+
+		$link = $domain.$uri;
+		$link = strtolower($link);
+		return $link;
+	}
 
 	public function addAdminPanel(string $hostName): int{
-		$key = $this->keyGenarator($hostName);
+		$key = $this->keyGenerator($hostName);
 		$this->db->insert('admin_panel', array('`host`' => $hostName, '`secure_key`' => $key));
 		$host_id = $this->db->lastInsertId();
 		return $host_id;

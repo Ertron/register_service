@@ -77,10 +77,8 @@ $adminController->post('/', function (Request $request) use ($app, $adminPanel){
 	}
 	$result = json_encode($result);
 	$response = new Response($result, 201);
-	/*$response->headers->set('Access-Control-Allow-Origin', '*');*/
 	$response->headers->set('Content-Type', 'application/json');
 	return $response;
-	/*return $app->json($result);*/
 });
 
 // Add Landing Page to Admin Panel
@@ -103,22 +101,7 @@ $adminController->post('/{id}/page', function ($id, Request $request) use ($app,
 		return new Response(json_encode($result), 414);
 	}
 
-	$url = trim($arr['url']);
-
-	if (!preg_match('#^http(s)?://#', $url)) {
-		$url = 'http://' . $url;
-	}
-
-	$urlParts = parse_url($url);
-
-	$domain = preg_replace('/^www\./', '', $urlParts['host']);
-	$uri = explode('#', $urlParts['path']);
-	$uri = $uri[0];
-	$uri = explode('?', $urlParts['path']);
-	$uri = $uri[0];
-
-	$link = $domain.$uri;
-	$link = strtolower($link);
+	$link = $adminPanel->lpLinkGenerator($arr['url']);
 
 	$is_set_host = $adminPanel->isSetLandingPage($id, $link);
 	$result['id'] = NULL;
