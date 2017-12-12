@@ -1,6 +1,6 @@
 let arrayScenarios = [
     {
-        "id": "1",
+        "scenario_id": "1",
         "popup_id": "1",
         "steps": [
             {
@@ -14,7 +14,7 @@ let arrayScenarios = [
         ]
     },
     {
-        "id": "3",
+        "scenario_id": "3",
         "popup_id": "1",
         "steps": [
             {
@@ -25,11 +25,6 @@ let arrayScenarios = [
                 "step_id": "2",
                 "parameters": 9000
             },
-            /*{
-                "step_id" : "3",
-                "parameters" : 0
-            }*/
-
         ]
     }
 ];
@@ -40,7 +35,7 @@ function findIndexByParam(array, param_name, param_value) {
     array.forEach(function (value, index) {
         if(value[param_name] == param_value){
             result = index;
-            return;
+            return result;
         }
     });
     return result;
@@ -171,7 +166,7 @@ var scenarioClass = (function (inc_steps) {
 
     function initialize() {
         console.log('initialize : ', inc_steps);
-        setScenarioId(inc_steps.id);
+        setScenarioId(inc_steps.scenario_id);
         setPopupId(inc_steps.popup_id);
 
         addSteps(inc_steps.steps, steps);
