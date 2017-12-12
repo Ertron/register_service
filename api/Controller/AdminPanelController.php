@@ -102,7 +102,10 @@ $adminController->post('/{id}/page', function ($id, Request $request) use ($app,
 	}
 
 	$link = $adminPanel->lpLinkGenerator($arr['url']);
-
+	if(strlen($link) < 3){
+		$result['result'] = 'Too short URL';
+		return new Response(json_encode($result), 400);
+	}
 	$is_set_host = $adminPanel->isSetLandingPage($id, $link);
 	$result['id'] = NULL;
 

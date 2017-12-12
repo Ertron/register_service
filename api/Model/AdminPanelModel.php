@@ -189,7 +189,6 @@ class AdminPanelModel {
 			$uri = explode('?', $urlParts['path']);
 			$uri = $uri[0];
 		}
-
 		$link = $domain.$uri;
 		$link = strtolower($link);
 		return $link;
