@@ -29,7 +29,7 @@ $adminController->get('/{id}', function ($id) use ($app, $adminPanel) {
 	return $app->json($adminPanel->getFullInfo($main));
 });
 $adminController->get('/{id}/page/{l_id}', function ($id, $l_id) use ($app, $adminPanel) {
-	if((int)$id == 0 || (int)$l_id){
+	if((int)$id == 0 || (int)$l_id == 0){
 		return new Response(json_encode("Bad request"), 400);
 	}
 	if($app['host_info.adminp_id'] != $id){
@@ -40,7 +40,7 @@ $adminController->get('/{id}/page/{l_id}', function ($id, $l_id) use ($app, $adm
 	return $app->json($adminPanel->getLanding($main));
 });
 $adminController->get('/{id}/page/{l_id}/scenarios/{sc_id}', function ($id, $l_id, $sc_id) use ($app, $adminPanel) {
-	if((int)$id == 0 || (int)$l_id || (int)$sc_id) {
+	if((int)$id == 0 || (int)$l_id == 0 || (int)$sc_id == 0) {
 		return new Response(json_encode("Bad request"), 400);
 	}
 	if($app['host_info.adminp_id'] != $id){
