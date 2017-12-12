@@ -182,10 +182,13 @@ class AdminPanelModel {
 		$urlParts = parse_url($url);
 
 		$domain = preg_replace('/^www\./', '', $urlParts['host']);
-		$uri = explode('#', $urlParts['path']);
-		$uri = $uri[0];
-		$uri = explode('?', $urlParts['path']);
-		$uri = $uri[0];
+		$uri='';
+		if(isset($urlParts['path']) && !empty($urlParts['path'])){
+			$uri = explode('#', $urlParts['path']);
+			$uri = $uri[0];
+			$uri = explode('?', $urlParts['path']);
+			$uri = $uri[0];
+		}
 
 		$link = $domain.$uri;
 		$link = strtolower($link);

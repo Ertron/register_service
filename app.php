@@ -49,7 +49,7 @@ $app->before(function(Request $request) use($app){
 	$app['host_info.hostname'] = $request->getHost();
 	$app['host_info.is_registered'] = $adm->isSetAdminPanel($app['host_info.hostname']);
 	$app['host_info.is_registered'] = true; // for tests
-	$app['host_info.adminp_id'] = 5; // for tests
+	$app['host_info.adminp_id'] = 4; // for tests
 	if($app['host_info.is_registered']){
 		$app['log'] = new LoggerService($app['host_info.adminp_id'], $app['db']); // for tests
 		/*$app['log'] = new LoggerService($adm->getAdminPanelIdByHostname($app['host_info.hostname']), $app['db']);*/
