@@ -36,11 +36,21 @@ class AdminPanelModel {
 		$result_arr = array();
 
 		foreach ($input as $item){
+			$steps = json_decode($item['steps'], true);
+			$steps_arr = array();
+			if(!empty($steps)){
+				foreach ($steps as $step){
+					$obj = new stdClass();
+					$obj->step_id = (string)$step['step_id'];
+					$obj->parameter = (string)$step['parameter'];
+					$steps_arr[] = $obj;
+				}
+			}
 
 			$adminp_arr[$item['adminp_id']][$item['lp_id']]['id'] = $item['lp_id'];
 			$adminp_arr[$item['adminp_id']][$item['lp_id']]['url'] = $item['url'];
 			$scenario = array('scenario_id' => $item['scenario_id'], 'popup_id' => $item['popup_id'],
-			                  'steps' => json_decode($item['steps'], true), 'filters' => json_decode($item['filters'], true));
+			                  'steps' => $steps_arr, 'filters' => json_decode($item['filters'], true));
 			$adminp_arr[$item['adminp_id']][$item['lp_id']]['scenarios'][$item['scenario_id']] = (object)$scenario;
 		}
 
@@ -48,7 +58,7 @@ class AdminPanelModel {
 			$adm_obj = new stdClass();
 			$lands = array();
 
-			$adm_obj->admin_id = $key;
+			$adm_obj->admin_id = (string)$key;
 
 			foreach ($value as $key_lp => $value_lp){
 				$scenarios = array();

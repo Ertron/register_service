@@ -18,24 +18,42 @@ $adminController->get('/', function (Request $request) use ($app, $adminPanel) {
 	return $app->json($adminPanel->getFullInfo($main));
 });
 $adminController->get('/{id}', function ($id) use ($app, $adminPanel) {
+	if((int)$id == 0){
+		return new Response(json_encode("Bad request"), 400);
+	}
+	if($app['host_info.adminp_id'] != $id){
+		return new Response(json_encode("Access denied"), 403);
+	}
 	$sql = $adminPanel->smartQueryBuilderSelect($id);
 	$main = $app['db']->fetchAll($sql, array());
 	return $app->json($adminPanel->getFullInfo($main));
 });
 $adminController->get('/{id}/page/{l_id}', function ($id, $l_id) use ($app, $adminPanel) {
-
+	if((int)$id == 0 || (int)$l_id){
+		return new Response(json_encode("Bad request"), 400);
+	}
+	if($app['host_info.adminp_id'] != $id){
+		return new Response(json_encode("Access denied"), 403);
+	}
 	$sql = $adminPanel->smartQueryBuilderSelect($id, $l_id);
 	$main = $app['db']->fetchAll($sql, array());
 	return $app->json($adminPanel->getLanding($main));
 });
 $adminController->get('/{id}/page/{l_id}/scenarios/{sc_id}', function ($id, $l_id, $sc_id) use ($app, $adminPanel) {
-	if(!$adminPanel->isSetScenario($id, $l_id, $sc_id)){
+	if((int)$id == 0 || (int)$l_id || (int)$sc_id) {
+		return new Response(json_encode("Bad request"), 400);
+	}
+	if($app['host_info.adminp_id'] != $id){
+		return new Response(json_encode("Access denied"), 403);
+	}
+	if(!$adminPanel->isSetScenario($l_id, $sc_id)){
 		return new Response('', 404);
 	}
 	$sql = $adminPanel->smartQueryBuilderSelect($id, $l_id, $sc_id);
 	$main = $app['db']->fetchAll($sql, array());
 	return $app->json($adminPanel->getScenario($main));
 });
+
 
 // Add Admin Panel
 $adminController->post('/', function (Request $request) use ($app, $adminPanel){
@@ -72,19 +90,41 @@ $adminController->post('/{id}/page', function ($id, Request $request) use ($app,
 	if((int)$id == 0){
 		return new Response(json_encode($result), 400);
 	}
-	if(empty($arr['url']) || !$adminPanel->isSetAdminPanel(NULL, $id) ){
+	if($app['host_info.adminp_id'] != $id){
+		return new Response(json_encode("Access denied"), 403);
+	}
+	if(empty($arr['url']) || strlen($arr['url']) < 3 ||
+	   !$adminPanel->isSetAdminPanel(NULL, $id) ||
+	   !preg_match('#((https?://|www\.|[^\s:=]+@www\.).*?[a-z_\/0-9\-\#=&])(?=(\.|,|;|\?|\!)?("|\'|«|»|\[|\s|\r|\n|$))#iS', $arr['url'])){
 		$result['result'] = 'Wrong Parameters';
 		return new Response(json_encode($result), 400);
 	}
 	if(strlen($arr['url']) > 2048){
 		return new Response(json_encode($result), 414);
 	}
-	$url = $arr['url'];
-	$is_set_host = $adminPanel->isSetLandingPage($id, $url);
+
+	$url = trim($arr['url']);
+
+	if (!preg_match('#^http(s)?://#', $url)) {
+		$url = 'http://' . $url;
+	}
+
+	$urlParts = parse_url($url);
+
+	$domain = preg_replace('/^www\./', '', $urlParts['host']);
+	$uri = explode('#', $urlParts['path']);
+	$uri = $uri[0];
+	$uri = explode('?', $urlParts['path']);
+	$uri = $uri[0];
+
+	$link = $domain.$uri;
+	$link = strtolower($link);
+
+	$is_set_host = $adminPanel->isSetLandingPage($id, $link);
 	$result['id'] = NULL;
 
 	if(!$is_set_host){// insert
-		$result['id'] = $adminPanel->addLandingPage($id, $url);
+		$result['id'] = $adminPanel->addLandingPage($id, $link);
 		$app['log']->addLog('landing_page', $result['id'], 'create');
 		$result['result'] = 'New Landing Page added to yours Admin Panel';
 	}
@@ -103,6 +143,9 @@ $adminController->post('/{id}/page/{lp_id}/scenario', function ($id, $lp_id, Req
 	if((int)$id == 0 || (int)$lp_id == 0){
 		$result['result'] = 'Wrong Parameters';
 		return new Response(json_encode($result), $status_code);
+	}
+	if($app['host_info.adminp_id'] != $id){
+		return new Response(json_encode("Access denied"), 403);
 	}
 	$arr = json_decode($request->getContent(), true);
 	$validator = new ScenarioValidator();
@@ -129,12 +172,16 @@ $adminController->post('/{id}/page/{lp_id}/scenario', function ($id, $lp_id, Req
 	return $response;
 });
 
+
 // Delete Admin Panel
 $adminController->delete('/{id}', function ($id) use ($app, $adminPanel){
 	$result['result'] = 'Admin Panel with this ID do not exist';
 	if((int)$id == 0){
 		$result['result'] = 'Wrong Parameters';
 		return new Response(json_encode($result), 400);
+	}
+	if($app['host_info.adminp_id'] != $id){
+		return new Response(json_encode("Access denied"), 403);
 	}
 	$is_set_adm = $adminPanel->isSetAdminPanel(NULL, $id);
 	if($is_set_adm){// delete
@@ -152,6 +199,9 @@ $adminController->delete('/{id}/page/{l_id}', function ($id, $l_id) use ($app, $
 		$result['result'] = 'Wrong Parameters';
 		return new Response(json_encode($result), 400);
 	}
+	if($app['host_info.adminp_id'] != $id){
+		return new Response(json_encode("Access denied"), 403);
+	}
 	$is_set_lp = $adminPanel->isSetLandingPage($id, NULL, $lp_id = $l_id);
 	if($is_set_lp){// delete
 		$result['result'] = 'Landing Page successfully deleted';
@@ -166,6 +216,9 @@ $adminController->delete('/{id}/page/{l_id}/scenario/{sc_id}', function ($id, $l
 	if((int)$id == 0 || (int)$l_id == 0 || (int)$sc_id == 0){
 		$result['result'] = 'Wrong Parameters';
 		return new Response(json_encode($result), 400);
+	}
+	if($app['host_info.adminp_id'] != $id){
+		return new Response(json_encode("Access denied"), 403);
 	}
 	$is_set_lp = $adminPanel->isSetScenario($l_id, $sc_id);
 	$result['result'] = 'Scenario with this ID do not exist';

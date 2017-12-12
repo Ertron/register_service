@@ -1,4 +1,5 @@
 <?php
+
 namespace api\Service;
 
 class LoggerService {
