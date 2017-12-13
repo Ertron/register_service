@@ -80,7 +80,7 @@ class ScenarioValidator {
 				return false;
 			}
 			foreach ($value_d as $key_h => $value_h){
-				if(!preg_match('^[h][0-9]{1,2}$', $key_h)){
+				if(!preg_match('/^[h][0-9]{1,2}$/', $key_h)){
 					return false;
 				}
 				if(!is_string($value_h)){
