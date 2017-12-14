@@ -7,7 +7,6 @@ use api\Service\ScenarioValidator;
 $adminPanel = new AdminPanelModel($app['db']);
 $adminController = $app['controllers_factory'];
 
-
 $adminController->get('/', function (Request $request) use ($app, $adminPanel) {
 	/*echo '<pre>';
 	var_dump($request->getPathInfo());
@@ -138,13 +137,24 @@ $adminController->post('/{id}/page/{lp_id}/scenario', function ($id, $lp_id, Req
 
 	$result['id'] = NULL;
 	$result['result'] = 'Scenario is not added';
-	if($validator->isValidScenario($arr)){
+	/*if($validator->isValidScenario($arr)){
 		$steps = json_encode($arr['steps']);
 		$filters = json_encode($arr['filters']);
 	}
 	else{
 		$result['result'] = "Wrong Parameters";
+	}*/
+	$scenario_stat = $validator->validateScenarioWithStat($arr);
+	if($scenario_stat['is_valid']){
+		$steps = json_encode($arr['steps']);
+		$filters = json_encode($arr['filters']);
 	}
+	else{
+		foreach ($scenario_stat['error_messages'] as $item){
+			$app['file_log']->info('Admin ID : '.$app['host_info.adminp_id'].' | '.$item);
+		}
+	}
+
 	if(!empty($lp_id) && !empty($steps) && !empty($filters) &&
 	   $adminPanel->isSetAdminPanel(NULL, $id) && $adminPanel->isSetLandingPage($id, NULL, $lp_id)){// insert
 		$result['id'] = $adminPanel->addScenario($lp_id, $arr['popup_id'], $steps, $filters);

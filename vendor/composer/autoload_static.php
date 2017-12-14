@@ -39,9 +39,12 @@ class ComposerStaticInit07e8b4449bbd40f50f589b522b6fdf65
             'Psr\\Log\\' => 8,
             'Psr\\Container\\' => 14,
         ),
+        'M' => 
+        array (
+            'Monolog\\' => 8,
+        ),
         'D' => 
         array (
-            'Doctrine\\Common\\Lexer\\' => 22,
             'Doctrine\\Common\\Inflector\\' => 26,
             'Doctrine\\Common\\Cache\\' => 22,
             'Doctrine\\Common\\Annotations\\' => 28,
@@ -118,9 +121,9 @@ class ComposerStaticInit07e8b4449bbd40f50f589b522b6fdf65
         array (
             0 => __DIR__ . '/..' . '/psr/container/src',
         ),
-        'Doctrine\\Common\\Lexer\\' => 
+        'Monolog\\' => 
         array (
-            0 => __DIR__ . '/..' . '/doctrine/lexer/lib/Doctrine/Common/Lexer',
+            0 => __DIR__ . '/..' . '/monolog/monolog/src/Monolog',
         ),
         'Doctrine\\Common\\Inflector\\' => 
         array (
@@ -160,6 +163,10 @@ class ComposerStaticInit07e8b4449bbd40f50f589b522b6fdf65
             'Doctrine\\DBAL\\' => 
             array (
                 0 => __DIR__ . '/..' . '/doctrine/dbal/lib',
+            ),
+            'Doctrine\\Common\\Lexer\\' => 
+            array (
+                0 => __DIR__ . '/..' . '/doctrine/lexer/lib',
             ),
             'Doctrine\\Common\\Collections\\' => 
             array (

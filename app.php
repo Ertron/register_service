@@ -8,6 +8,10 @@ use Symfony\Component\HttpFoundation\Response;
 
 use api\Service\LoggerService;
 
+use Monolog\Logger;
+use Monolog\Handler\StreamHandler;
+use Monolog\Handler\FirePHPHandler;
+
 $autoload = require_once __DIR__.'/vendor/autoload.php';
 $autoload->add('api\\', __DIR__);
 $autoload->register();
@@ -32,6 +36,16 @@ $app->register(new \Silex\Provider\DoctrineServiceProvider(), array(
 		'charset'   => 'utf8',
 	)
 ));
+/*$app->register(new \Silex\Provider\MonologServiceProvider(), array(
+	'monolog.logfile' => __DIR__ . '/logs/development.log',
+));*/
+
+$logger = new Logger('Logger');
+$logger->pushHandler(new StreamHandler(__DIR__.'/logs/add_scenario_error.log', Logger::DEBUG));
+$logger->pushHandler(new FirePHPHandler());
+$app['file_log'] = $logger;
+/*$logger->info('My logger is now ready');*/
+
 
 $app->mount('/api', include 'api/Controller/ApiController.php' );
 

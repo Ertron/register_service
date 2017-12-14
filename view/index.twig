@@ -46,10 +46,10 @@
                 var XHR = ("onload" in new XMLHttpRequest()) ? XMLHttpRequest : XDomainRequest;
 
                 var xhr = new XHR();
-                var json = JSON.stringify({
-                    "url" : "https://tassos5.gr/jmla-extensions/convert-forms/docs/using-the-javascript-api#dsdssds<sadXsdsa"
-                });
                 /*var json = JSON.stringify({
+                    "url" : "https://t.4s"
+                });*/
+                var json = JSON.stringify({
                     scenario_id: 3,
                     popup_id: 33,
                     steps: [
@@ -58,16 +58,24 @@
                             parameter : 50
                         },
                         {
-                            step_id : 3,
+
                             parameter : 80
                         }],
                     filters: {
                         geo : {},
                         device : {},
-                        time_table : {},
+                        time_table: {
+                            "Monday":{"h0":"on","h1":"on","h2":"on","h3":"on","h4":"on","h5":"on","h6":"on","h7":"on","h8":"on","h9":"on","h10":"on","h11":"on","h12":"on","h13":"on","h14":"on","h15":"on","h16":"on","h17":"on","h18":"on","h19":"on","h20":"on","h21":"on","h22":"on","h23":"on"},
+                            "Tuesday":{"h0":"on","h1":"on","h2":"on","h3":"on","h4":"on","h5":"on","h6":"on","h7":"on","h8":"on","h9":"on","h10":"on","h11":"on","h12":"on","h13":"on","h14":"on","h15":"on","h16":"on","h17":"on","h18":"on","h19":"on","h20":"on","h21":"on","h22":"on","h23":"on"},
+                            "Wednesday":{"h0":"on","h1":"on","h2":"on","h3":"on","h4":"on","h5":"on","h6":"on","h7":"on","h8":"on","h9":"on","h10":"on","h11":"on","h12":"on","h13":"on","h14":"on","h15":"on","h16":"on","h17":"on","h18":"on","h19":"on","h20":"on","h21":"on","h22":"on","h23":"on"},
+                            "Thursday":{"h0":"on","h1":"on","h2":"on","h3":"on","h4":"on","h5":"on","h6":"on","h7":"on","h8":"on","h9":"on","h10":"on","h11":"on","h12":"on","h13":"on","h14":"on","h15":"on","h16":"on","h17":"on","h18":"on","h19":"on","h20":"on","h21":"on","h22":"on","h23":"on"},
+                            "Friday":{"h0":"on","h1":"on","h2":"on","h3":"on","h4":"on","h5":"on","h6":"on","h7":"on","h8":"on","h9":"on","h10":"on","h11":"on","h12":"on","h13":"on","h14":"on","h15":"on","h16":"on","h17":"on","h18":"on","h19":"on","h20":"on","h21":"on","h22":"on","h23":"on"},
+                            "Saturday":{"h0":"on","h1":"on","h2":"on","h3":"on","h4":"on","h5":"on","h6":"on","h7":"on","h8":"on","h9":"on","h10":"on","h11":"on","h12":"on","h13":"on","h14":"on","h15":"on","h16":"on","h17":"on","h18":"on","h19":"on","h20":"on","h21":"on","h22":"on","h23":"on"},
+                            "Sunday":{"h0":"on","h1":"on","h2":"on","h3":"on","h4":"on","h5":"on","h6":"on","h7":"on","h8":"on","h9":"on","h10":"on","h11":"on","h12":"on","h13":"on","h14":"on","h15":"on","h16":"on","h17":"on","h18":"on","h19":"on","h20":"on","h21":"on","h22":"on","h23":"on"}
+                            },
                         user_access : {new : 0, old : 1}
                     }
-                });*/
+                });
                 /*var json = JSON.stringify({
                     popup_id: 1,
                     steps: [{step_id:1,parameter:55}],
@@ -77,11 +85,11 @@
                         user_access: {new: 0,old: 1}}});*/
 
                 /*xhr.open('delete', '/api/adminp/asdsa', true);*/
-                xhr.open('post', '/api/adminp/6/page', true);
-                /*xhr.open('post', '/api/adminp/5/page/2332/scenario', true);*/
+                /*xhr.open('post', '/api/adminp/4/page', true);*/
+                xhr.open('post', '/api/adminp/4/page/2/scenario', true);
                 /*xhr.open('post', 'http://localhost:8080/api/adminp/', true);*/
                 /*xhr.open('GET', 'http://magic.com/', true);*/
-                /*xhr.open('GET', 'http://reg.com/api/adminp/', true);*/
+                /*xhr.open('GET', 'http://reg.com/api/adminp/4/page/2', true);*/
 
                 xhr.onload = function() {
                     console.log('this : ', this);
