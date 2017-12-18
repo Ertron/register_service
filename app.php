@@ -41,7 +41,7 @@ $app->register(new \Silex\Provider\DoctrineServiceProvider(), array(
 ));*/
 
 $logger = new Logger('Logger');
-$logger->pushHandler(new StreamHandler(__DIR__.'/logs/add_scenario_error.log', Logger::DEBUG));
+$logger->pushHandler(new StreamHandler(__DIR__.'/logs/api_fails.log', Logger::DEBUG));
 $logger->pushHandler(new FirePHPHandler());
 $app['file_log'] = $logger;
 /*$logger->info('My logger is now ready');*/

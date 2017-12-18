@@ -59,6 +59,7 @@ $adminController->post('/', function (Request $request) use ($app, $adminPanel){
 	$arr = json_decode($request->getContent(), true);
 	if(empty($arr['host'])){
 		$result['result'] = 'Wrong Parameters';
+		$app['file_log']->info('Admin ID : '.$app['host_info.adminp_id'].' | Admin Panel failed: HOST parameter is empty');
 		return new Response(json_encode($result), 400);
 	}
 	$name = $arr['host'];
@@ -73,6 +74,7 @@ $adminController->post('/', function (Request $request) use ($app, $adminPanel){
 	}
 	else{
 		$result['result'] = 'Admin panel with this name is already registered';
+		$app['file_log']->info('Admin ID : '.$app['host_info.adminp_id'].' | Admin Panel failed: Admin panel with this name is already registered');
 	}
 	$result = json_encode($result);
 	$response = new Response($result, 201);
@@ -85,6 +87,7 @@ $adminController->post('/{id}/page', function ($id, Request $request) use ($app,
 	$arr = json_decode($request->getContent(), true);
 	$result['result'] = 'Landing Page is not added';
 	if((int)$id == 0){
+		$app['file_log']->info('Admin ID : '.$app['host_info.adminp_id'].' | Landing Page failed: Invalid admin panel ID');
 		return new Response(json_encode($result), 400);
 	}
 	if($app['host_info.adminp_id'] != $id){
@@ -94,15 +97,18 @@ $adminController->post('/{id}/page', function ($id, Request $request) use ($app,
 	   !$adminPanel->isSetAdminPanel(NULL, $id) ||
 	   !preg_match('#((https?://|www\.|[^\s:=]+@www\.).*?[a-z_\/0-9\-\#=&])(?=(\.|,|;|\?|\!)?("|\'|«|»|\[|\s|\r|\n|$))#iS', $arr['url'])){
 		$result['result'] = 'Wrong Parameters';
+		$app['file_log']->info('Admin ID : '.$app['host_info.adminp_id'].' | Landing Page failed: URL parameter is wrong or not valid');
 		return new Response(json_encode($result), 400);
 	}
 	if(strlen($arr['url']) > 2048){
+		$app['file_log']->info('Admin ID : '.$app['host_info.adminp_id'].' | Landing Page failed: URL parameter is too long');
 		return new Response(json_encode($result), 414);
 	}
 
 	$link = $adminPanel->lpLinkGenerator($arr['url']);
 	if(strlen($link) < 3){
 		$result['result'] = 'Too short URL';
+		$app['file_log']->info('Admin ID : '.$app['host_info.adminp_id'].' | Landing Page failed: URL parameter is too short');
 		return new Response(json_encode($result), 400);
 	}
 	$is_set_host = $adminPanel->isSetLandingPage($id, $link);
@@ -115,6 +121,7 @@ $adminController->post('/{id}/page', function ($id, Request $request) use ($app,
 	}
 	else{
 		$result['result'] = 'Landing Page with this name is already registered';
+		$app['file_log']->info('Admin ID : '.$app['host_info.adminp_id'].' | Landing Page failed: Landing Page with this name is already registered');
 	}
 	$result = json_encode($result);
 	$response = new Response($result, 201);
@@ -151,7 +158,7 @@ $adminController->post('/{id}/page/{lp_id}/scenario', function ($id, $lp_id, Req
 	}
 	else{
 		foreach ($scenario_stat['error_messages'] as $item){
-			$app['file_log']->info('Admin ID : '.$app['host_info.adminp_id'].' | '.$item);
+			$app['file_log']->info('Admin ID : '.$app['host_info.adminp_id'].' | Scenario failed: '.$item);
 		}
 	}
 
