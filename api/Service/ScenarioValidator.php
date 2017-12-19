@@ -69,14 +69,26 @@ class ScenarioValidator {
 		if(isset($array['geo'])){
 			$geo = $array['geo'];
 		}
+		else{
+			$this->result_info['error_messages'][] = 'geo is not set';
+		}
 		if(isset($array['device'])){
 			$device = $array['device'];
+		}
+		else{
+			$this->result_info['error_messages'][] = 'device is not set';
 		}
 		if(isset($array['time_table'])){
 			$time_table = $array['time_table'];
 		}
+		else{
+			$this->result_info['error_messages'][] = 'time_table is not set';
+		}
 		if(isset($array['user_access'])){
 			$user = $array['user_access'];
+		}
+		else{
+			$this->result_info['error_messages'][] = 'user_access is not set';
 		}
 		if(!empty($geo) && !$this->isValidGeo($geo)){
 			$this->result_info['error_messages'][] = 'Not valid Geo info : '.json_encode($geo);
