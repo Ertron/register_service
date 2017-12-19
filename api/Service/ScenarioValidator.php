@@ -63,10 +63,21 @@ class ScenarioValidator {
 		return true;
 	}
 	private function validateFilter(array $array){
-		$geo = $array['geo'];
-		$device = $array['device'];
-		$time_table = $array['time_table'];
-		$user = $array['user_access'];
+		$geo = null;
+		$device = null;
+		$user = null;
+		if(isset($array['geo'])){
+			$geo = $array['geo'];
+		}
+		if(isset($array['device'])){
+			$device = $array['device'];
+		}
+		if(isset($array['time_table'])){
+			$time_table = $array['time_table'];
+		}
+		if(isset($array['user_access'])){
+			$user = $array['user_access'];
+		}
 		if(!empty($geo) && !$this->isValidGeo($geo)){
 			$this->result_info['error_messages'][] = 'Not valid Geo info : '.json_encode($geo);
 		}
@@ -168,11 +179,17 @@ class ScenarioValidator {
 		if(!isset($array['steps'])){
 			$this->result_info['error_messages'][] = 'steps is not set';
 		}
+		elseif(empty($array['steps'])){
+			$this->result_info['error_messages'][] = 'steps is empty';
+		}
 		else{
 			$this->validateSteps($array['steps']);
 		}
 		if(!isset($array['filters'])){
 			$this->result_info['error_messages'][] = 'filters is not set';
+		}
+		elseif(empty($array['filters'])){
+			$this->result_info['error_messages'][] = 'filters is empty';
 		}
 		else{
 			$this->validateFilter($array['filters']);
