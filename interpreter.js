@@ -41,6 +41,12 @@ function findIndexByParam(array, param_name, param_value) {
     return result;
 }
 
+var event = new MouseEvent('open', {
+    'view': window,
+    'bubbles': true,
+    'cancelable': true
+});
+
 var scenarioClass = (function (inc_steps) {
     let scenario_id = '';
     let popup_id = '';
@@ -118,6 +124,8 @@ var scenarioClass = (function (inc_steps) {
         if(allStepsChecked() && show_popup){
             console.info('ALL CHECKED');
             show_popup = false;
+            let btn = document.querySelector('#rstbox_'+popup_id);
+            btn.dispatchEvent(event);
             alert('POPUP');
         }
         else{
