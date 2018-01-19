@@ -11,6 +11,15 @@
     },
     "require-dev": {
         "symfony/browser-kit": "3.4.x-dev",
-        "symfony/css-selector": "3.4.x-dev"
+        "symfony/css-selector": "3.4.x-dev",
+        "phpunit/phpunit": "^6.5",
+        "phpunit/php-invoker": "^1.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "apiModel\\":"src/api/Model/",
+            "apiController\\":"src/api/Controller",
+            "Service\\":"src/Service"
+        }
     }
 }

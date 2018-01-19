@@ -1,0 +1,56 @@
+[
+  {
+    "admin_id": "15",
+    "landings": [
+      {
+        "lp_id": "3",
+        "url": "http://test.com",
+        "scenaries": [
+          {
+            "scenario_id": "1",
+            "popup_id": "1",
+            "steps": [
+              {
+                "step_id": "1",
+                "parameter": "60"
+              }
+            ],
+            "filters": {
+              "geo": {},
+              "device": {},
+              "time_table": {},
+              "user_access": {
+                "new": 0,
+                "old": 1
+              }
+            }
+          },
+          {
+            "scenario_id": "2",
+            "popup_id": "2",
+            "steps": [
+              {
+                "step_id": "1",
+                "parameter": "90"
+              },
+              {
+                "step_id": "2",
+                "parameter": "3"
+              }
+            ],
+            "filters": {
+              "geo": {},
+              "device": {},
+              "time_table": {},
+              "user_access": {
+                "new": 0,
+                "old": 1
+              }
+            }
+          }
+        ]
+      }
+    ]
+  }
+
+]

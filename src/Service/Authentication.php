@@ -1,7 +1,7 @@
 <?php
 
 
-namespace api\Service;
+namespace Service;
 
 
 class Authentication {

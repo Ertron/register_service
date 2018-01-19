@@ -1,6 +1,6 @@
 <?php
 
-namespace api\Service;
+namespace Service;
 
 class LoggerService {
 	private $adminPanelId;

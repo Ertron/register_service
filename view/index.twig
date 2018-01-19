@@ -46,21 +46,13 @@
                 var XHR = ("onload" in new XMLHttpRequest()) ? XMLHttpRequest : XDomainRequest;
 
                 var xhr = new XHR();
-                var json = JSON.stringify({
-                    "url" : "https://t.s"
-                });
                 /*var json = JSON.stringify({
+                    "url" : "5"
+                });*/
+                var json = JSON.stringify({
                     scenario_id: 3,
                     popup_id: 33,
-                    steps: [
-                        {
-                            step_id : 1,
-                            parameter : 50
-                        },
-                        {
-
-                            parameter : 80
-                        }],
+                    steps: [],
                     filters: {
                         geo : {},
                         device : {},
@@ -75,7 +67,7 @@
                             },
                         user_access : {new : 0, old : 1}
                     }
-                });*/
+                });
                 /*var json = JSON.stringify({
                     popup_id: 1,
                     steps: [{step_id:1,parameter:55}],
@@ -85,8 +77,8 @@
                         user_access: {new: 0,old: 1}}});*/
 
                 /*xhr.open('delete', '/api/adminp/asdsa', true);*/
-                xhr.open('post', '/api/adminp/4/page', true);
-                /*xhr.open('post', '/api/adminp/4/page/2/scenario', true);*/
+                /*xhr.open('post', '/api/adminp/4/page', true);*/
+                xhr.open('post', '/api/adminp/4/page/2/scenario', true);
                 /*xhr.open('post', 'http://localhost:8080/api/adminp/', true);*/
                 /*xhr.open('GET', 'http://magic.com/', true);*/
                 /*xhr.open('GET', 'http://reg.com/api/adminp/4/page/2', true);*/
