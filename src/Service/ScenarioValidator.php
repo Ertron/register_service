@@ -146,10 +146,10 @@ class ScenarioValidator {
 	 **/
 	private function isValidGeo(array $array) :bool {
 		foreach ($array as $key => $value){
-			if(!preg_match('^[a-zA-Z]{2}$', $key)){
+			if(!preg_match('/^[a-zA-Z]{2}$/', $key)){
 				return false;
 			}
-			if(!empty($key)){
+			if(is_array($key) && !empty($key)){
 				foreach ($key as $key_city => $value_city){
 					if(!preg_match('^[a-zA-Z]*$', $key_city)){
 						return false;
@@ -167,12 +167,12 @@ class ScenarioValidator {
 	 **/
 	private function isValidDevice(array $array) :bool {
 		foreach ($array as $key => $value){
-			if(!preg_match('^[a-zA-Z]*$', $key)){
+			if(!preg_match('/^[a-zA-Z]*$/', $key)){
 				return false;
 			}
 			if(!empty($value)){
 				foreach ($value as $key_os => $value_os){
-					if(!preg_match('^[a-zA-Z]*$', $key_os)){
+					if(!preg_match('/^[a-zA-Z]*$/', $key_os)){
 						return false;
 					}
 				}
@@ -246,9 +246,9 @@ class ScenarioValidator {
 	}
 
 	/**
-	 * Validate Scenario with statistics
+	 * Check is valid scenario
 	 * @param array $array Array of scenario full info
-	 * @return array
+	 * @return bool
 	 **/
 	public function validateScenarioWithStat($array) :array {
 

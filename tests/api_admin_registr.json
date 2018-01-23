@@ -5,7 +5,7 @@
         {
         "lp_id" : "1",
         "url": "http://test.com",
-        "scenaries": [{
+        "scenarios": [{
                 "scenario_id": "1",
                 "popup_id": "1",
                 "steps": [
