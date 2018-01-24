@@ -34,6 +34,8 @@ $app->before(function(Request $request) use($app){
 		$app->json();
 	}*/
 });
+
+// NEED AUTHENTICATION METHOD
 $app->after(function(Request $request, Response $response) use ($app){
 	$response->headers->set('Access-Control-Allow-Origin', '*');
 });
