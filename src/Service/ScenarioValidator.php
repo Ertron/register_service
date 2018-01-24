@@ -13,17 +13,17 @@ class ScenarioValidator {
 	/**
 	 * @var array
 	**/
-	private $week_days = array('Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday');
+	private $weekDays = array('Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday');
 
 	/**
 	 * @var array
 	 **/
-	private $user_status = array(0,1);
+	private $userStatus = array(0,1);
 
 	/**
 	 * @var array
 	 **/
-	private $result_info = array('is_valid', 'error_messages');
+	private $resultInfo = array('is_valid', 'error_messages');
 
 	/**
 	 * Check is valid steps
@@ -50,17 +50,17 @@ class ScenarioValidator {
 	private function validateSteps(array $array) :void{
 		foreach ($array as $item){
 			if(!isset($item['step_id'])){
-				$this->result_info['error_messages'][] = 'Step ID is not set';
+				$this->resultInfo['error_messages'][] = 'Step ID is not set';
 			}
 			elseif(!is_integer((int)$item['step_id']) || (int)$item['step_id'] == 0){
-				$this->result_info['error_messages'][] = 'Not valid Step ID '.$item['step_id'];
+				$this->resultInfo['error_messages'][] = 'Not valid Step ID '.$item['step_id'];
 			}
 			if(!isset($item['parameter'])){
-				$this->result_info['error_messages'][] = 'Step parameter is not set';
+				$this->resultInfo['error_messages'][] = 'Step parameter is not set';
 				break;
 			}
 			if(!empty($item['parameter']) && (!is_integer((int)$item['parameter']) || (int)$item['parameter'] == 0)){
-				$this->result_info['error_messages'][] = 'Step parameter is not valid';
+				$this->resultInfo['error_messages'][] = 'Step parameter is not valid';
 			}
 		}
 	}
@@ -105,37 +105,37 @@ class ScenarioValidator {
 			$geo = $array['geo'];
 		}
 		else{
-			$this->result_info['error_messages'][] = 'geo is not set';
+			$this->resultInfo['error_messages'][] = 'geo is not set';
 		}
 		if(isset($array['device'])){
 			$device = $array['device'];
 		}
 		else{
-			$this->result_info['error_messages'][] = 'device is not set';
+			$this->resultInfo['error_messages'][] = 'device is not set';
 		}
 		if(isset($array['time_table'])){
 			$time_table = $array['time_table'];
 		}
 		else{
-			$this->result_info['error_messages'][] = 'time_table is not set';
+			$this->resultInfo['error_messages'][] = 'time_table is not set';
 		}
 		if(isset($array['user_access'])){
 			$user = $array['user_access'];
 		}
 		else{
-			$this->result_info['error_messages'][] = 'user_access is not set';
+			$this->resultInfo['error_messages'][] = 'user_access is not set';
 		}
 		if(!empty($geo) && !$this->isValidGeo($geo)){
-			$this->result_info['error_messages'][] = 'Not valid Geo info : '.json_encode($geo);
+			$this->resultInfo['error_messages'][] = 'Not valid Geo info : '.json_encode($geo);
 		}
 		if(!empty($device) && !$this->isValidDevice($device)){
-			$this->result_info['error_messages'][] = 'Not valid Device info : '.json_encode($device);
+			$this->resultInfo['error_messages'][] = 'Not valid Device info : '.json_encode($device);
 		}
 		if(!empty($time_table) && !$this->isValidTimeTable($time_table)){
-			$this->result_info['error_messages'][] = 'Not valid TimeTable info : '.$time_table;
+			$this->resultInfo['error_messages'][] = 'Not valid TimeTable info : '.$time_table;
 		}
 		if(!empty($user) && !$this->isValidUserAccess($user)){
-			$this->result_info['error_messages'][] = 'Not valid UserAccess info : '.$user;
+			$this->resultInfo['error_messages'][] = 'Not valid UserAccess info : '.$user;
 		}
 	}
 
@@ -188,7 +188,7 @@ class ScenarioValidator {
 	 **/
 	private function isValidTimeTable(array $array) :bool {
 		foreach ($array as $key_d => $value_d){
-			if (!in_array($key_d, $this->week_days)){
+			if (!in_array($key_d, $this->weekDays)){
 				return false;
 			}
 			foreach ($value_d as $key_h => $value_h){
@@ -209,10 +209,10 @@ class ScenarioValidator {
 	 * @return bool
 	 **/
 	private function isValidUserAccess(array $array) : bool {
-		if(!isset($array['new']) || !in_array($array['new'], $this->user_status)){
+		if(!isset($array['new']) || !in_array($array['new'], $this->userStatus)){
 			return false;
 		}
-		if(!isset($array['old']) || !in_array($array['old'], $this->user_status)){
+		if(!isset($array['old']) || !in_array($array['old'], $this->userStatus)){
 			return false;
 		}
 		if($array['new'] == $array['old']){
@@ -252,41 +252,41 @@ class ScenarioValidator {
 	 **/
 	public function validateScenarioWithStat($array) :array {
 
-		$this->result_info['is_valid'] = true;
-		$this->result_info['error_messages'] = null;
+		$this->resultInfo['is_valid'] = true;
+		$this->resultInfo['error_messages'] = null;
 
 		if(!isset($array['scenario_id'])){
-			$this->result_info['error_messages'][] = 'scenario_id is not set';
+			$this->resultInfo['error_messages'][] = 'scenario_id is not set';
 		}
 
 		if(!isset($array['popup_id'])){
-			$this->result_info['error_messages'][] = 'popup_id is not set';
+			$this->resultInfo['error_messages'][] = 'popup_id is not set';
 		}
 
 		if(!isset($array['steps'])){
-			$this->result_info['error_messages'][] = 'steps is not set';
+			$this->resultInfo['error_messages'][] = 'steps is not set';
 		}
 		elseif(empty($array['steps'])){
-			$this->result_info['error_messages'][] = 'steps is empty';
+			$this->resultInfo['error_messages'][] = 'steps is empty';
 		}
 		else{
 			$this->validateSteps($array['steps']);
 		}
 
 		if(!isset($array['filters'])){
-			$this->result_info['error_messages'][] = 'filters is not set';
+			$this->resultInfo['error_messages'][] = 'filters is not set';
 		}
 		elseif(empty($array['filters'])){
-			$this->result_info['error_messages'][] = 'filters is empty';
+			$this->resultInfo['error_messages'][] = 'filters is empty';
 		}
 		else{
 			$this->validateFilter($array['filters']);
 		}
 
-		if(count($this->result_info['error_messages']) > 0){
-			$this->result_info['is_valid'] = false;
+		if(count($this->resultInfo['error_messages']) > 0){
+			$this->resultInfo['is_valid'] = false;
 		}
 
-		return $this->result_info;
+		return $this->resultInfo;
 	}
 }
