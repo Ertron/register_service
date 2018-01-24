@@ -248,7 +248,7 @@ class ScenarioValidator {
 	/**
 	 * Check is valid scenario
 	 * @param array $array Array of scenario full info
-	 * @return bool
+	 * @return array
 	 **/
 	public function validateScenarioWithStat($array) :array {
 
