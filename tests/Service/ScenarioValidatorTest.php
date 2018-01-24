@@ -244,16 +244,12 @@ class ScenarioValidatorTest extends TestCase {
 		)
 	);
 
-	protected $scenariosIsValidChecked;
-
 	protected function setUp() {
 		$this->validatorObject = new ScenarioValidator();
 	}
 
 	protected function tearDown() {
 		$this->validatorObject = null;
-		$this->scenarios = null;
-		$this->scenariosIsValidChecked = null;
 	}
 
 	public function scenarioProvider(){
@@ -263,6 +259,7 @@ class ScenarioValidatorTest extends TestCase {
 	}
 
 	/**
+	 * @test method isValidScenario
 	 * @dataProvider scenarioProvider
 	 *
 	 * @param bool $expected
@@ -284,7 +281,11 @@ class ScenarioValidatorTest extends TestCase {
 		return $method->invokeArgs($object, $parameters);
 	}
 
-	public function testInvokeMethod(){
+
+	/**
+	 * @test method isValidSteps
+	 */
+	public function testIsValidSteps(){
 		$this->assertFalse($this->invokeMethod(
 			$this->validatorObject,
 			'isValidSteps', array($this->scenarios[0]['steps'])));
@@ -292,5 +293,32 @@ class ScenarioValidatorTest extends TestCase {
 			$this->validatorObject,
 			'isValidSteps', array($this->scenarios[1]['steps'])));
 	}
+
+
+	/**
+	 * @test method isValidFilter
+	 */
+	public function testIsValidFilter(){
+		$this->assertTrue($this->invokeMethod(
+			$this->validatorObject,
+			'isValidFilter', array($this->scenarios[0]['filters'])));
+		$this->assertTrue($this->invokeMethod(
+			$this->validatorObject,
+			'isValidFilter', array($this->scenarios[1]['filters'])));
+	}
+
+
+	/**
+	 * @test method isValidGeo
+	 */
+	public function testIsValidGeo(){
+		$this->assertTrue($this->invokeMethod(
+			$this->validatorObject,
+			'isValidGeo', array($this->scenarios[0]['filters']['geo'])));
+		$this->assertTrue($this->invokeMethod(
+			$this->validatorObject,
+			'isValidGeo', array($this->scenarios[1]['filters']['geo'])));
+	}
+
 
 }
