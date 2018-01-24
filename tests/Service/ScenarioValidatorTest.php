@@ -275,8 +275,8 @@ class ScenarioValidatorTest extends TestCase {
 		$this->assertEquals($expected, $actual);
 	}
 
-	public function invokeMethod(&$object, $methodName, array $parameters = array())
-	{
+	public function invokeMethod(&$object, $methodName, array $parameters = array()){
+
 		$reflection = new \ReflectionClass(get_class($object));
 		$method = $reflection->getMethod($methodName);
 		$method->setAccessible(true);
@@ -285,8 +285,12 @@ class ScenarioValidatorTest extends TestCase {
 	}
 
 	public function testInvokeMethod(){
-		var_dump($this->invokeMethod($this->validatorObject, 'isValidSteps', array($this->scenarios[0]['steps'])));
-		$this->assertFalse($this->invokeMethod($this->validatorObject, 'isValidSteps', array($this->scenarios[0]['steps'])));
+		$this->assertFalse($this->invokeMethod(
+			$this->validatorObject,
+			'isValidSteps', array($this->scenarios[0]['steps'])));
+		$this->assertTrue($this->invokeMethod(
+			$this->validatorObject,
+			'isValidSteps', array($this->scenarios[1]['steps'])));
 	}
 
 }
