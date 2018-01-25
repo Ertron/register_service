@@ -129,7 +129,7 @@ class AdminPanelModel {
 	/**
 	 * @param array $input
 	 *
-	 * @return null
+	 * @return mixed
 	 */
 	public function getLanding(array $input){
 		$array = $this->convertToPattern($input);
@@ -143,7 +143,7 @@ class AdminPanelModel {
 	/**
 	 * @param array $input
 	 *
-	 * @return null
+	 * @return mixed
 	 */
 	public function getScenario(array $input){
 		$array = $this->convertToPattern($input);
