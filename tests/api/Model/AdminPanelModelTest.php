@@ -13,8 +13,6 @@ class AdminPanelModelTest extends TestCase {
 
 	protected $host_id = 4;
 
-	protected static $dbh;
-
 	public static function setUpBeforeClass()
 	{
 		$app = require_once __DIR__.'/../Model/../../../bootstrap.php';
